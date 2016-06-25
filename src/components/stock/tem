@@ -1,0 +1,37 @@
+            <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}
+              onPress={this.onOpenItem}>
+              <View  style={styles.info}>
+                <View style={styles.name}>
+                    <Text>{stock.name}</Text>
+                    <Text style={{fontSize:11}}>{stock.code}</Text>
+                </View>
+                <View style={styles.price}>
+                  <Text style={this.getPriceStyle()}>{stock.price}</Text>
+                </View>         
+                <View style={this.getPercentStyle()}>
+                    <Text style={styles.percentText}>{this.getPercent(stock)}</Text>
+                </View>
+              </View>
+            </TouchableNativeFeedback>   
+        
+            <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}
+              onPress={this.onOpenTechChart}>    
+              <View   style={styles.state}>
+                  <View style={this.getStateStyle('day')}></View>
+                  <View style={this.getStateStyle('week')}></View>
+                  <View style={this.getStateStyle('month')}></View>
+              </View>
+            </TouchableNativeFeedback>   
+
+
+                      <View style={styles.slideWin}>
+              <View style={styles.slideBtn2}>
+                <TextButton onPress={this.onSetInMyHand} text={(()=>stock.inhand==true?'标为空仓':'标为持仓')()} color={'black'} />
+              </View>
+              <View style={styles.slideBtn}>                
+                <TextButton onPress={this.onSetTop} text={'置顶'} color={'black'} />
+              </View>
+              <View style={styles.slideBtn}>                
+                <TextButton onPress={this.onRemove} text={'删除'} color={'black'} />
+              </View>
+          </View>
