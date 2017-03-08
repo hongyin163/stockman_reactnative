@@ -2,6 +2,11 @@
 'use strict';
 
 import React, { Component } from 'react';
+import {
+	StyleSheet,
+	View,
+	Text
+} from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import {ColorConfig} from '../config';
 import Titlebar from './control/titlebar';
@@ -10,11 +15,6 @@ import MyPostionList from './cloud/myPositionList';
 import RecentlyTrades from './cloud/recentlyTrades';
 import TradeStrategy from './cloud/tradeStrategy';
 
-import {
-	StyleSheet,
-	View,
-	Text
-} from 'react-native';
 
 var Cloud = React.createClass({
 	getInitialState: function() {

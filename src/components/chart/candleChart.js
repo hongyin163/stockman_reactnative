@@ -1,16 +1,15 @@
-var React=require('react-native');
+
+import React, { Component,PropTypes } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,  
+} from 'react-native';
 
 var {ColorConfig}=require('../../config');
 var {
 	CombinedChart
 }=require('react-native-chart-android');
-
-var {
-  StyleSheet,
-  View,
-  Text,
-  PropTypes
-} = React;
 
 var chart = React.createClass({
 	propTypes: {
@@ -90,7 +89,7 @@ var chart = React.createClass({
 				}
 			]	
 		}
-
+		debugger
 		for (var i = 0; i < allData.length; i++) {
 
 			allData[i][0]=allData[i][0].substring(4);

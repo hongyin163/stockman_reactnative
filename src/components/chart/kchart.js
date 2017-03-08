@@ -1,4 +1,13 @@
-var React=require('react-native');
+
+import React, { Component } from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  InteractionManager 
+} from 'react-native';
+
 var StockItemStore=require('../../stores/stockPriceStore');
 var myStockAction=require('../../actions/myStockAction');
 var TechBar=require('./techBar');
@@ -8,16 +17,6 @@ var {ColorConfig}=require('../../config');
 var {
 	CombinedChart
 }=require('react-native-chart-android');
-
-var {
-  ScrollView,
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  NativeAppEventEmitter,
-  InteractionManager 
-} = React;
 
 var chart = React.createClass({
 	getInitialState:function(){

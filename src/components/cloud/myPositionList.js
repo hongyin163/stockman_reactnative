@@ -5,25 +5,29 @@ import CloudAction from '../../actions/cloudAction';
 import PositionStore from '../../stores/positionStore';
 
 import {
-  StyleSheet,
-  View,
-  Text
+	StyleSheet,
+	View,
+	Text
 } from 'react-native';
 
 class myPositionList extends Component {
-	componentDidMount(){
+	componentDidMount() {
 		PositionStore.listen(this.onChange);
-		var me=this;
-		setTimeout(()=>{     
-		    me.setLoading(true); 
-		    CloudAction.loadMyPosition();
-		},100);    
+		var me = this;
+		setTimeout(() => {
+			// me.setLoading(true); 
+			CloudAction.loadMyPosition();
+		}, 100);
 	}
-	componentWillUnmount(){
+	componentWillUnmount() {
 		PositionStore.unlisten(this.onChange);
 	}
-	onChange(state){ 
-		this.setState(state);
+	onChange(store) {
+		this.setState(function (state) {
+			for (var pro in store) {
+				state[pro] = store[pro];
+			}
+		});
 	}
 	render() {
 		return (
@@ -39,4 +43,4 @@ const styles = StyleSheet.create({
 });
 
 
-module.exports= myPositionList;
+module.exports = myPositionList;

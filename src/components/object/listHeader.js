@@ -1,26 +1,23 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
-var DataAdapter=require('../chart/techDataAdapter');
-var { Icon, } = require('react-native-icons');
-var {
-  ScrollView,
+import React, { Component,PropTypes } from 'react';
+import {
   StyleSheet,
   View,
   Image,
   Text,
-  TouchableNativeFeedback,
-  InteractionManager,
-  PullToRefreshViewAndroid,
-  ToastAndroid,
-  Dimensions
-} = React;
+  TouchableNativeFeedback
+} from 'react-native';
+
+var DataAdapter=require('../chart/techDataAdapter');
+var { Icon, } = require('react-native-icons');
+
 var {
   ToolbarAndroid,
-  SwipeRefreshLayout
+  // SwipeRefreshLayout
 }=require('react-native-android-lib');
-var Component = React.createClass({
+var ListHeader = React.createClass({
 	getInitialState: function() {
 		return {
 			tech:this.props.tech,
@@ -76,30 +73,31 @@ var Component = React.createClass({
 	render: function() {
 	    return (
 	      	<View style={{flexDirection: 'row',height:35,backgroundColor:'#f5f5f5' }}>
-	          <View style={styles.head}><Text style={styles.headText}>名称</Text></View>
-	          <View style={styles.head}><Text style={styles.headText}>价格</Text></View>
-	          <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}
-	              onPress={this.onSortByPercent}>
-	            <View style={styles.head}>
-	              <Text style={styles.headText}>涨跌</Text>
-	              {this.getSortIcon()}                
-	            </View>   
-	          </TouchableNativeFeedback>
-	          <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}
-	              onPress={this.onOpenTech}>    
-	            <View style={styles.head}>
-	              <Text style={styles.headText}>{this.state.tech.name}</Text>
-	              <ToolbarAndroid ref={(contrl)=>this._techTool=contrl} 
-	                actions={this.state.techList} 
-	                style={{width:5,height:35,opacity:0}}
-	                onActionSelected={this.onTechSelected} />
-	            </View>
-	          </TouchableNativeFeedback>      
+	       
+						<View style={styles.head}><Text style={styles.headText}>名称</Text></View>
+						<View style={styles.head}><Text style={styles.headText}>价格</Text></View>
+						<TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}
+														onPress={this.onSortByPercent}>
+									<View style={styles.head}>
+										<Text style={styles.headText}>涨跌</Text>
+										{this.getSortIcon()}                
+									</View>   
+								</TouchableNativeFeedback>
+								<TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}
+										onPress={this.onOpenTech}>    
+									<View style={styles.head}>
+										<Text style={styles.headText}>{this.state.tech.name}</Text>
+										<ToolbarAndroid ref={(contrl)=>this._techTool=contrl} 
+															actions={this.state.techList} 
+															style={{width:5,height:35,opacity:0}}
+															onActionSelected={this.onTechSelected} />
+									</View>
+						</TouchableNativeFeedback>      
+	         
 	        </View>
 	    );
 	  }
 	});
-
 
 var styles = StyleSheet.create({
 	head:{flexDirection:'row', flex:1, justifyContent :'center',alignItems: 'center',},
@@ -107,4 +105,4 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports = Component;
+module.exports = ListHeader;

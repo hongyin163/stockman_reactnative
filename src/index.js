@@ -1,14 +1,6 @@
 'use strict';
-
-var React = require('react-native');
-
-var TextButton=require('./components/control/button');
-var TabPanel=require('./components/tabPanel');
-var Subscribable = require('Subscribable');
-var SideMenu=require('./components/menu');
-
-var Nav=require('./components/nav');
-var {
+import React,{Component} from 'react';
+import {
   StyleSheet,
   Text,
   View,
@@ -19,7 +11,14 @@ var {
   BackAndroid,
   DrawerLayoutAndroid,
   WebView
-} = React;
+} from 'react-native';
+
+var TextButton=require('./components/control/button');
+var TabPanel=require('./components/tabPanel');
+var Subscribable = require('Subscribable');
+var SideMenu=require('./components/menu');
+
+var Nav=require('./components/nav');
 
 var DrawerLayout=React.createClass({
   componentWillMount: function() {

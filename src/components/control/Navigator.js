@@ -1,14 +1,15 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
-
-var {
+import React, { Component } from 'react';
+import {
   StyleSheet,
   View,
   Animated,
   Dimensions
-} = React;
+} from 'react-native';
+
+
 var SCREEN_WIDTH = Dimensions.get('window').width;
 var SCREEN_HEIGHT = Dimensions.get('window').height;
 var SCENE_DISABLED_NATIVE_PROPS = {

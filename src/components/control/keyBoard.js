@@ -1,12 +1,14 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
 
-var {
+import React, { Component } from 'react';
+import {
   StyleSheet,
-  View,
-} = React;
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 
 var KeyBoard = React.createClass({
   render: function() {

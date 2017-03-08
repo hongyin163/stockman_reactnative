@@ -1,16 +1,17 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
-var {ColorConfig}=require('../../config');
-var TimerMixin = require('react-timer-mixin');
-var {
+import React, { Component } from 'react';
+import {
   StyleSheet,
   View,
   Text,
   TouchableNativeFeedback,
   TouchableWithoutFeedback
-} = React;
+} from 'react-native';
+
+var {ColorConfig}=require('../../config');
+var TimerMixin = require('react-timer-mixin');
 
 var TechBtn=React.createClass({
 	getInitialState:function (argument) {

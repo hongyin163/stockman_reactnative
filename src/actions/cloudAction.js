@@ -10,16 +10,20 @@ var {
 class ClcoudActions {
 	loadMyPosition() {
 		var me=this;
-		DataCloud.getMyPosition(function (results) {
-			me.dispatch(results);
-		})
+		return (dispatch)=>{
+			DataCloud.getMyPosition(function (results) {
+				dispatch(results);
+			})
+		}
 		
 	}
 	loadRecentTrade(){
 		var me=this;
-		DataCloud.getRecentTrades(function (results) {
-			me.dispatch(results);
-		})
+		return (dispatch)=>{
+			DataCloud.getRecentTrades(function (results) {
+				dispatch(results);
+			})
+		}
 	}
 	loadTradeStrategy() {
 	}

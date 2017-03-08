@@ -27,10 +27,14 @@ class recentlyTrades extends Component {
 		TradeStore.unlisten(this.onChange);
 	}
 	onChange(state) {
-		this.setState(state);
+		this.setState(function (state) {
+			for (var pro in store) {
+				state[pro] = store[pro];
+			}
+		});
 	}
 	render() {
-		return ( < View / > );
+		return (< View />);
 	}
 }
 

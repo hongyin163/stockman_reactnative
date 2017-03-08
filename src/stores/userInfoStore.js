@@ -3,17 +3,17 @@ var actions = require('../actions/userAction');
 
 class UserInfoStore {
 	constructor() {
-			this.data = {}
-			this.bindListeners({
-				handleUpdateInfo: actions.UPDATE_INFO,
-				handleInitInfo: actions.INIT_INFO
-			});
-		}
-		//{cycle:'day',price:[]}
+		this.data = {}
+		this.bindListeners({
+			handleUpdateInfo: actions.UPDATE_INFO,
+			handleInitInfo: actions.INIT_INFO
+		});
+	}
+	//{cycle:'day',price:[]}
 	handleUpdateInfo(data) {
 		this.data = data;
 	}
-	handleInitInfo(data){
+	handleInitInfo(data) {
 		this.data = data;
 	}
 }

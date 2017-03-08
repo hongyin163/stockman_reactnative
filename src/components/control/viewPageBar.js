@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react-native');
-var {
+import React, { Component, PropTypes } from 'react';
+import {
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   Animated,
-} = React;
+} from 'react-native';
 
-var height=50;
+var height = 50;
 
 var styles = StyleSheet.create({
   tab: {
@@ -19,7 +19,7 @@ var styles = StyleSheet.create({
   },
 
   tabs: {
-    flex:1,
+    flex: 1,
     height: height,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -29,25 +29,25 @@ var styles = StyleSheet.create({
     borderRightWidth: 0,
     borderBottomColor: '#ccc'
   },
-  container:{
-    height:height,
+  container: {
+    height: height,
     flexDirection: 'row'
   },
-  toolbarLeft:{
-    height:height,
-    flex:1,
+  toolbarLeft: {
+    height: height,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    padding:5,
+    padding: 5,
   },
-  toolbarRight:{
-    height:height,
-    flex:1,
+  toolbarRight: {
+    height: height,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    padding:5,
+    padding: 5,
   }
 });
 
@@ -56,10 +56,10 @@ var DefaultTabBar = React.createClass({
     goToPage: React.PropTypes.func,
     activeTab: React.PropTypes.number,
     tabs: React.PropTypes.array,
-    underlineColor : React.PropTypes.string,
-    backgroundColor : React.PropTypes.string,
-    activeTextColor : React.PropTypes.string,
-    inactiveTextColor : React.PropTypes.string,
+    underlineColor: React.PropTypes.string,
+    backgroundColor: React.PropTypes.string,
+    activeTextColor: React.PropTypes.string,
+    inactiveTextColor: React.PropTypes.string,
     renderRightTool: React.PropTypes.func,
     renderLeftTool: React.PropTypes.func,
   },
@@ -71,19 +71,21 @@ var DefaultTabBar = React.createClass({
     return (
       <TouchableOpacity style={[styles.tab]} key={name} onPress={() => this.props.goToPage(page)}>
         <View>
-          <Text style={{color: isTabActive ? activeTextColor : inactiveTextColor,
-            fontWeight: isTabActive ? 'bold' : 'normal'}}>{name}</Text>
+          <Text style={{
+            color: isTabActive ? activeTextColor : inactiveTextColor,
+            fontWeight: isTabActive ? 'bold' : 'normal'
+          }}>{name}</Text>
         </View>
       </TouchableOpacity>
     );
   },
-  renderRightTool(){
-    if(this.props.renderRightTool)
+  renderRightTool() {
+    if (this.props.renderRightTool)
       return this.props.renderRightTool();
     return [];
   },
-  renderLeftTool(){
-    if(this.props.renderLeftTool)
+  renderLeftTool() {
+    if (this.props.renderLeftTool)
       return this.props.renderLeftTool();
     return [];
   },
@@ -92,24 +94,24 @@ var DefaultTabBar = React.createClass({
     var numberOfTabs = this.props.tabs.length;
     var tabUnderlineStyle = {
       position: 'absolute',
-      width: containerWidth / (numberOfTabs*3),
+      width: containerWidth / (numberOfTabs * 3),
       height: 2,
       backgroundColor: this.props.underlineColor || "navy",
       bottom: 5,
     };
 
     var left = this.props.scrollValue.interpolate({
-      inputRange: [0, 1], outputRange: [0,  containerWidth / (numberOfTabs*3),]
+      inputRange: [0, 1], outputRange: [0, containerWidth / (numberOfTabs * 3),]
     });
 
     return (
-      <View style={[styles.container, {backgroundColor : this.props.backgroundColor || null},this.props.style]}>
+      <View style={[styles.container, { backgroundColor: this.props.backgroundColor || null }, this.props.style]}>
         <View style={styles.toolbarLeft}>
           {this.renderLeftTool()}
         </View>
         <View style={[styles.tabs]}>
           {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
-          <Animated.View style={[tabUnderlineStyle, {left}]} />
+          <Animated.View style={[tabUnderlineStyle, { left }]} />
         </View>
         <View style={styles.toolbarRight}>
           {this.renderRightTool()}

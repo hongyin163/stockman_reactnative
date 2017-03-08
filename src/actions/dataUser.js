@@ -10,7 +10,7 @@ var {
 	AsyncStorage,
 } = React;
 
-var host = 'http://www.mandata.cn/webservice/';
+var host = 'http://www.mandata.cn:8081/';
 module.exports = {
 	saveSSOAcount: function(user,success,error) {
 		var url = host + 'api/users/SaveSSOAcount';

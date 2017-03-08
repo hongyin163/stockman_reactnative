@@ -1,18 +1,20 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
-var Titlebar=require('../control/titlebar');
-var IconButton=require('../control/button');
-var ProgressBar = require('../control/loading');
-var {
+import React, { Component } from 'react';
+import {
 	StyleSheet,
 	View,
 	WebView,
 	Text,
-} = React;
+} from 'react-native';
+
+var Titlebar=require('../control/titlebar');
+var IconButton=require('../control/button');
+var ProgressBar = require('../control/loading');
+
 var WEBVIEW_REF = 'webview';
-var Component = React.createClass({	
+var SubApp = React.createClass({	
 	onRefresh:function (argument) {
 		this.refs[WEBVIEW_REF].reload();
 	},
@@ -59,4 +61,4 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports = Component;
+module.exports = SubApp;

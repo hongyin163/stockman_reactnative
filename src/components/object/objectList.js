@@ -1,7 +1,13 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
+import React from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
+
 var TimerMixin = require('react-timer-mixin');
 var StockItem=require('./objectItem');
 var StockDetail=require('./objectDetail');
@@ -13,18 +19,6 @@ var { Icon, } = require('react-native-icons');
 var DataAdapter=require('../chart/techDataAdapter');
 var TimerMixin = require('react-timer-mixin');
 var Nav=require('../nav');
-var {
-  ScrollView,
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableNativeFeedback,
-  InteractionManager,
-  PullToRefreshViewAndroid,
-  ToastAndroid,
-  Dimensions
-} = React;
 //<ObjectList data={} category={}/>
 var ObjectList = React.createClass({
 	onSelect:function (data) {

@@ -1,13 +1,13 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
-
-var {
+import React, { Component } from 'react';
+import {
   StyleSheet,
   View,
   NativeAppEventEmitter
-} = React;
+} from 'react-native';
+
 
 class Nav {
 	constructor(){

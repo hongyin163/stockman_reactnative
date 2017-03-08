@@ -1,17 +1,15 @@
 'use strict';
 
-
-var React = require('react-native');
-var { Icon, } = require('react-native-icons');
-
-var {
+import { Icon } from 'react-native-icons';
+import React,{Component} from 'react';
+import {
   PixelRatio,
   StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View
-} = React;
+} from 'react-native';
 
 class button extends React.Component {
   setColor(color){

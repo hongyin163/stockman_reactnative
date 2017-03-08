@@ -1,5 +1,4 @@
 package cn.mandata.stockman;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -29,12 +28,6 @@ import cn.mandata.react_native_voise.BaiduVoiseLibPackage;
 
 public class MainActivity extends ReactActivity {
 
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        UmengLogin.onActivityResult(requestCode, resultCode, data);
-//    }
     /**
      * Returns the name of the main component registered from JavaScript.
      * This is used to schedule rendering of the component.
@@ -43,38 +36,9 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "stock";
     }
-
-    /**
-     * Returns whether dev mode should be enabled.
-     * This enables e.g. the dev menu.
-     */
-    @Override
-    protected boolean getUseDeveloperSupport() {
-        return  true;
-    }
-
-    /**
-     * A list of packages used by the app. If the app uses additional views
-     * or modules besides the default ones, add more packages here.
-     */
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-                new MainReactPackage(),
-                new ReactNativeIcons(Arrays.asList(
-                        new IconFont("typicons", "typicons.ttf"),
-                        new IconFont("fontawesome", "FontAwesome.otf")
-                )),
-                new MPChartPackage(),
-                new ManDataLibPackage(),
-                new BaiduVoiseLibPackage()
-        );
-    }
-
+    
     @Override
     public void onBackPressed() {
         this.onKeyUp(KeyEvent.KEYCODE_MENU,new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_MENU));
     }
-
-
 }

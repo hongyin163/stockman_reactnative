@@ -1,21 +1,20 @@
 
 'use strict';
-var React = require('react-native');
-var Titlebar=require('../control/titlebar');
-var {ColorConfig}=require('../../config');
 
-var filterStore=require('../../stores/filterStore');
-var filterAction=require('../../actions/filterAction');
-var {
-  Image,
-  ListView,
-  TouchableHighlight,
+import React,{Component} from 'react';
+import {
   StyleSheet,
   Text,
   View,
   TouchableWithoutFeedback,
   Dimensions
-} = React;
+} from 'react-native';
+
+var Titlebar=require('../control/titlebar');
+var {ColorConfig}=require('../../config');
+
+var filterStore=require('../../stores/filterStore');
+var filterAction=require('../../actions/filterAction');
 
 var SCREEN_WIDTH = Dimensions.get('window').width;
 var SCREEN_HEIGHT = Dimensions.get('window').height;

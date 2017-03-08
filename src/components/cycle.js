@@ -1,6 +1,12 @@
 'use strict';
 
-var React = require('react-native');
+import React,{Component} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+
 var MyObjectList = require('./object/myObjectList');
 var Titlebar=require('./control/titlebar');
 var IconButton=require('./control/button');
@@ -14,13 +20,6 @@ var Nav=require('./nav');
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 var {ColorConfig}=require('../config');
 var ViewPagerBar=require('./control/viewPageBar')
-var {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  NativeAppEventEmitter
-} = React;
 
 var Main = React.createClass({
   getInitialState: function() {

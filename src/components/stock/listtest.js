@@ -1,13 +1,15 @@
 'use strict';
-var React = require('react-native');
-var {
+import React, { Component } from 'react';
+import {
   Image,
   ListView,
   TouchableHighlight,
   StyleSheet,
   Text,
   View,
-} = React;
+} from 'react-native';
+
+
 var ListViewSimpleExample = React.createClass({
   statics: {
     title: '<ListView> - Simple',

@@ -1,15 +1,15 @@
 
-const React = require('react-native');
-const { Dimensions, Animated, } = React;
-const deviceScreen = Dimensions.get('window');
 
-const {
+import React, { Component,PropTypes } from 'react';
+import {
   StyleSheet,
   PanResponder,
   View,
-  TouchableWithoutFeedback,
-  Component,
-} = React;
+  TouchableWithoutFeedback
+} from 'react-native';
+
+const { Dimensions, Animated, } = React;
+const deviceScreen = Dimensions.get('window');
 
 /**
  * Default open menu offset. Describes a size of the amount you can

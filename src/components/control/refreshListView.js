@@ -1,16 +1,16 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
-var TimerMixin = require('react-timer-mixin');
-var PullToRefreshView=require('./pullToRefresh');
-var {
-  ScrollView,
+import React, { Component } from 'react';
+import {
   StyleSheet,
   View,
-  ListView,
-  PullToRefreshViewAndroid
-} = React;
+  ListView
+} from 'react-native';
+
+var TimerMixin = require('react-timer-mixin');
+var PullToRefreshView=require('./pullToRefresh');
+
 //<ObjectList data={} category={}/>
 var ObjectList = React.createClass({
 	onRefresh:function (argument) {

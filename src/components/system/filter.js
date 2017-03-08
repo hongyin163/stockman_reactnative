@@ -1,26 +1,24 @@
 'use strict';
-var React = require('react-native');
-var Titlebar=require('../control/titlebar');
-var {ColorConfig}=require('../../config');
+import React from 'react';
+import {
+	StyleSheet,
+	Text,
+	View,
+	TouchableWithoutFeedback
+} from 'react-native';
 
-var filterStore=require('../../stores/filterStore');
-var filterAction=require('../../actions/filterAction');
+var Titlebar = require('../control/titlebar');
+var {ColorConfig} = require('../../config');
 
-var FilterItem=require('./filterItem');
+var filterStore = require('../../stores/filterStore');
+var filterAction = require('../../actions/filterAction');
 
-var {
-  Image,
-  ListView,
-  TouchableHighlight,
-  StyleSheet,
-  Text,
-  View,
-  TouchableWithoutFeedback
-} = React;
-var styles=StyleSheet.create({
-	container:{
-		flex:1,
-		backgroundColor:'#fff'
+var FilterItem = require('./filterItem');
+
+var styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: '#fff'
 	}
 });
 
@@ -136,45 +134,45 @@ var styles=StyleSheet.create({
 // 	}
 // });
 
-var Component=React.createClass({
-	getInitialState:function (argument) {
+var Filter = React.createClass({
+	getInitialState: function (argument) {
 		return filterStore.getState();
 	},
-	componentDidMount:function(){
-	    filterStore.listen(this.onChange);
-	    filterAction.load();
+	componentDidMount: function () {
+		filterStore.listen(this.onChange);
+		filterAction.load();
 	},
-	componentWillUnmount:function(){
-	    filterStore.unlisten(this.onChange);
-	},  
-	onChange:function(state){ 
-	    this.setState(state);
+	componentWillUnmount: function () {
+		filterStore.unlisten(this.onChange);
 	},
-	onSelect:function (argument){
+	onChange: function (state) {
+		this.setState(state);
+	},
+	onSelect: function (argument) {
 		this.setState(this.state);
 	},
-	getOptionRows:function (argument) {
+	getOptionRows: function (argument) {
 		var me = this;
-		var data=this.state.data;
-		var rows=[];
-		for(var pro in data){
-			rows.push( <FilterItem key={'filter_'+pro}  data={data[pro]} name={pro} onSelect={me.onSelect} />)
+		var data = this.state.data;
+		var rows = [];
+		for (var pro in data) {
+			rows.push(<FilterItem key={'filter_' + pro} data={data[pro]} name={pro} onSelect={me.onSelect} />)
 		}
 		return rows;
 	},
-	onSave:function (argument) {
+	onSave: function (argument) {
 		filterAction.save(this.state.getValues());
 	},
-	render: function() {
+	render: function () {
 		return (
 			<View style={styles.container}>
-				<Titlebar showBack={true} title={"数据过滤"} onBack={this.onSave}/>		
+				<Titlebar showBack={true} title={"数据过滤"} onBack={this.onSave} />
 				<View>
 					{this.getOptionRows()}
 				</View>
 			</View>
 		);
-	}	
+	}
 });
 
-module.exports=Component;
+module.exports = Filter;

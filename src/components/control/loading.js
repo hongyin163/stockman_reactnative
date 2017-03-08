@@ -1,30 +1,52 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
-var ProgressBar = require('ProgressBarAndroid');
-var {ColorConfig}=require('../../config');
-var {
+import React, { Component } from 'react';
+import {
   StyleSheet,
   View,
-  Text
-} = React;
+  Text,
+  ActivityIndicator
+} from 'react-native';
 
-var Component = React.createClass({
-  render: function() {
+var { ColorConfig } = require('../../config');
+
+var Loading = React.createClass({
+  getInitialState: function () {
+    return {
+      show: true
+    }
+  },
+  componentDidMount: function () {
+    var me = this;
+    // setTimeout(() => {
+    //   me.setState(function (state) {
+    //     state.show = true;
+    //   })
+    // }, 100);
+  },
+  render: function () {
     return (
-      	<View style={styles.loading}>
-			<ProgressBar style={{width:50,height:50}} color={ColorConfig.baseColor}/>
-			<Text>加载中...</Text>
-		</View>
+      <View style={styles.loading}>
+        <ActivityIndicator animating={this.state.show} style={[styles.centering, { opacity: this.state.show ? 1.0 : 0.0 }]} size={80} color={ColorConfig.baseColor} />
+        <Text>加载中...</Text>
+      </View>
     );
   }
 });
 
-
+/**/
 var styles = StyleSheet.create({
-	loading:{ flex:1,justifyContent:'center',alignItems:'center'},
+  centering: {
+    height: 80,
+    width: 80
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 });
 
 
-module.exports = Component;
+module.exports = Loading;

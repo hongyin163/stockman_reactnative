@@ -1,43 +1,39 @@
 'use strict';
-
-var React = require('react-native');
-var myStockStore=require('../../stores/myStocksStore');
-var myStockAction=require('../../actions/myStockAction');
-var myObjectAction=require('../../actions/objectAction');
-var NavAction=require('../../actions/navigationAction');
-var StockItem=require('./listItem');
-var StockList=require('./stockList');
-var ListHeader=require('./listHeader');
-var {
-  ToolbarAndroid
-}=require('react-native-android-lib');
-var { Icon, } = require('react-native-icons');
-var DataAdapter=require('../chart/techDataAdapter');
-var TimerMixin = require('react-timer-mixin');
-var {
+import React, { Component } from 'react';
+import {
   ScrollView,
   StyleSheet,
   View,
-  Image,
   Text,
-  TouchableNativeFeedback,
-  InteractionManager,
-  PullToRefreshViewAndroid,
   ToastAndroid,
   AsyncStorage
-} = React;
+} from 'react-native';
 
-var scrollView=React.createClass({
+var myStockStore = require('../../stores/myStocksStore');
+var myStockAction = require('../../actions/myStockAction');
+var myObjectAction = require('../../actions/objectAction');
+var NavAction = require('../../actions/navigationAction');
+var StockItem = require('./listItem');
+var StockList = require('./stockList');
+var ListHeader = require('./listHeader');
+var {
+  ToolbarAndroid
+} = require('react-native-android-lib');
+var { Icon, } = require('react-native-icons');
+var DataAdapter = require('../chart/techDataAdapter');
+var TimerMixin = require('react-timer-mixin');
+
+var scrollView = React.createClass({
   mixins: [TimerMixin],
-  getInitialState:function() {   
-    var state= myStockStore.getState();
+  getInitialState: function () {
+    var state = myStockStore.getState();
     // state.sort='asc';
     // state.tech='kdj';
     return state;
   },
-  componentDidMount:function(){
+  componentDidMount: function () {
     myStockStore.listen(this.onChange);
-    var me=this;
+    var me = this;
     // AsyncStorage.getItem("isFirst")
     // .then((p)=>{
     //     me.downLoadData();
@@ -49,90 +45,93 @@ var scrollView=React.createClass({
     me.loadData();
 
   },
-  downLoadData:function (argument) {
-    this.setTimeout(()=>{
+  downLoadData: function (argument) {
+    this.setTimeout(() => {
       // myStockAction.downLoad();
       // myObjectAction.downLoad();      
-    },300);
+    }, 300);
   },
-  loadData:function (argument) {
-    var me=this;
-    setTimeout(()=>{     
-        me.setLoading(true); 
-        myStockAction.loadMyStock();
-        setTimeout(()=>{
-            myStockAction.updatePrice(me.state);
-              setTimeout(()=>{
-                  myStockAction.updateState(me.state,me.state.tech.code);
-                  me.setLoading(false);
-              },500);          
-        },500);
-    },100);    
+  loadData: function (argument) {
+    var me = this;
+    setTimeout(() => {
+      me.setLoading(true);
+      myStockAction.loadMyStock();
+      setTimeout(() => {
+        myStockAction.updatePrice(me.state);
+        setTimeout(() => {
+          myStockAction.updateState(me.state, me.state.tech.code);
+          me.setLoading(false);
+        }, 500);
+      }, 500);
+    }, 100);
   },
-  componentWillUnmount:function(){
+  componentWillUnmount: function () {
     myStockStore.unlisten(this.onChange);
-  },  
-  onChange:function(state){ 
-    this.setState(state);
   },
-  reloadData:function(){
-    var me=this;
+  onChange: function (store) {
+    this.setState(function (state) {
+      for (var p in store) {
+        state[p] = store[p];
+      }
+    });
+  },
+  reloadData: function () {
+    var me = this;
     me.setLoading(true);
-    setTimeout(()=>{
+    setTimeout(() => {
       myStockAction.updatePrice(me.state);
-      setTimeout(()=>{
-        myStockAction.updateState(me.state,me.state.tech.code);
+      setTimeout(() => {
+        myStockAction.updateState(me.state, me.state.tech.code);
         me.setLoading(false);
-      },500);          
-    },500);
+      }, 500);
+    }, 500);
   },
-  onSortByPercent:function(sort){
-    var me=this;
+  onSortByPercent: function (sort) {
+    var me = this;
     myStockAction.sort(sort)
   },
-  onOpenTech:function(){
+  onOpenTech: function () {
 
     this._techTool.showMenu();
 
-  },  
-  onTechSelected:function (code) {
-    var me=this;
+  },
+  onTechSelected: function (code) {
+    var me = this;
     console.log(code);
     me.setLoading(true);
     this.setTimeout(function (argument) {
-        myStockAction.updateState(me.state,code,function (argument) {
-          me.setLoading(false);  // body...
-        });       
-    },100);
+      myStockAction.updateState(me.state, code, function (argument) {
+        me.setLoading(false);  // body...
+      });
+    }, 100);
   },
-  setLoading:function(isLoading){
-    this._stockList&&this._stockList.setRefreshing(isLoading);
+  setLoading: function (isLoading) {
+    this._stockList && this._stockList.setRefreshing(isLoading);
   },
-  render: function() {
-    var stockRows=[];
-    if(this.state.errorMessage){
-      stockRows.push(<View key={"placeholder"} style={{flex:1}}></View>);
+  render: function () {
+    var stockRows = [];
+    if (this.state.errorMessage) {
+      stockRows.push(<View key={"placeholder"} style={{ flex: 1 }}></View>);
       //ToastAndroid.show(this.state.errorMessage+"",ToastAndroid.LONG);
     }
     else {
-      stockRows.push(<StockList key={'StockList'} ref={(n)=>this._stockList=n} onRefresh={this.reloadData} data={this.state.stockList}/>)
+      stockRows.push(<StockList key={'StockList'} ref={(n) => this._stockList = n} onRefresh={this.reloadData} data={this.state.stockList} />)
     }
     return (
-      <View style={{flex:1}}>                    
-         <ListHeader tech={{code:'T0001',name:'MACD'}} onSort={this.onSortByPercent} onTechSelected={this.onTechSelected}/>
-         {stockRows}
+      <View style={{ flex: 1 }}>
+        <ListHeader tech={{ code: 'T0001', name: 'MACD' }} onSort={this.onSortByPercent} onTechSelected={this.onTechSelected} />
+        {stockRows}
       </View>
     );
   }
-
 });
 
 var styles = StyleSheet.create({
   scrollView: {
-    flex:1
+    flex: 1
   },
-  head:{flexDirection:'row', flex:1, justifyContent :'center',alignItems: 'center',},
-  headText:{fontSize:15},
+  head: { flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center', },
+  headText: { fontSize: 15 },
   horizontalScrollView: {
     height: 120,
   },
@@ -150,7 +149,7 @@ var styles = StyleSheet.create({
     height: 40,
   },
 
-  delete:{
+  delete: {
 
   },
   buttonContents: {
@@ -165,4 +164,4 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports=scrollView;
+module.exports = scrollView;

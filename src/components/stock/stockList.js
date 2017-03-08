@@ -1,122 +1,120 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
+import React, { Component } from 'react';
+import {
+	ScrollView,
+	StyleSheet,
+	View,
+	Text,
+	ListView
+} from 'react-native';
+
 var TimerMixin = require('react-timer-mixin');
-var StockItem=require('./editItem');
+var StockItem = require('./editItem');
 var {
-  ToolbarAndroid
-}=require('react-native-android-lib');
+	ToolbarAndroid
+} = require('react-native-android-lib');
 var { Icon, } = require('react-native-icons');
-var DataAdapter=require('../chart/techDataAdapter');
+var DataAdapter = require('../chart/techDataAdapter');
 var TimerMixin = require('react-timer-mixin');
-var myStockAction=require('../../actions/myStockAction');
-var Nav=require('../nav');
-var StockDetail=require('./stockDetail');
-var {ColorConfig}=require('../../config');
-var PullToRefreshView=require('../control/pullToRefresh');
-var {
-  ScrollView,
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableNativeFeedback,
-  InteractionManager,
-  ToastAndroid,
-  Dimensions,
-  RecyclerViewBackedScrollView,
-  ListView
-} = React;
+var myStockAction = require('../../actions/myStockAction');
+var Nav = require('../nav');
+var StockDetail = require('./stockDetail');
+var {ColorConfig} = require('../../config');
+var PullToRefreshView = require('../control/pullToRefresh');
+
 //<ObjectList data={} category={}/>
 var ObjectList = React.createClass({
-	onSetInMyHand:function(){
+	onSetInMyHand: function () {
 		this._rowViewStyle.style.right.setValue(0);
-		myStockAction.setInHand(this.props.data.code,!this.props.data.inhand);
+		myStockAction.setInHand(this.props.data.code, !this.props.data.inhand);
 	},
-	onSetTop:function () {
+	onSetTop: function () {
 		this._rowViewStyle.style.right.setValue(0);
 		myStockAction.setTop(this.props.data.code);
 	},
-	onRemove:function(){
+	onRemove: function () {
 		myStockAction.remove(this.props.data.code);
 	},
-	getActions:function (data) {
-		var actions=[			
+	getActions: function (data) {
+		var actions = [
 			{
-				title:data.inhand? '标为空仓':'标为持仓',
-				width:80
+				title: data.inhand ? '标为空仓' : '标为持仓',
+				width: 80
 			},
 			{
-				title:'置顶'
+				title: '置顶'
 			},
 			{
-				title:'删除'
+				title: '删除'
 			}
 		];
 		return actions;
 	},
-	onActionSelect:function (action,data) {
-		var me=this;
-		if(action.title=='删除'){
-			myStockAction.remove(data.code);
-		}else if(action.title=='置顶'){
-			myStockAction.setTop(data.code);
-		}else if(action.title=='标为空仓'||action.title=='标为持仓'){
-			myStockAction.setInHand(data.code,!data.inhand);
-		}
-	},
-	createRows:function(){
+	onActionSelect: function (action, data) {
 		var me = this;
-		var list=me.props.data;
-		if(list&&list.length>0){
-		  	return  list.map(function (obj) {
-		    	return (<StockItem key={obj.code}  id={obj.code} data={obj} actions={me.getActions(obj)} onActionSelect={me.onActionSelect}></StockItem>);
-		 	});
-		}else{
-		  	return [];
+		if (action.title == '删除') {
+			myStockAction.remove(data.code);
+		} else if (action.title == '置顶') {
+			myStockAction.setTop(data.code);
+		} else if (action.title == '标为空仓' || action.title == '标为持仓') {
+			myStockAction.setInHand(data.code, !data.inhand);
 		}
-	}, 
-	onRefresh:function (argument) {
-		this.props.onRefresh&&this.props.onRefresh();
 	},
-	setRefreshing:function (isLoading) {
-		this._refresh&&this._refresh.setRefreshing(isLoading);
+	createRows: function () {
+		var me = this;
+		var list = me.props.data;
+		if (list && list.length > 0) {
+			return list.map(function (obj) {
+				return (<StockItem key={obj.code} id={obj.code} data={obj} actions={me.getActions(obj)} onActionSelect={me.onActionSelect}></StockItem>);
+			});
+		} else {
+			return [];
+		}
 	},
-	onSelect:function (data) {
-	    Nav.open(<StockDetail name={data.name} code={data.code} cycle={"day"}/>);
+	onRefresh: function (argument) {
+		this.props.onRefresh && this.props.onRefresh();
+	},
+	setRefreshing: function (isLoading) {
+		this._refresh && this._refresh.setRefreshing(isLoading);
+	},
+	onSelect: function (data) {
+		Nav.open(<StockDetail name={data.name} code={data.code} cycle={"day"} />);
 
 	},
-	renderRow:function (obj) {
-		var me=this;
-		return (<StockItem key={obj.code}  id={obj.code} data={obj} 
-			actions={me.getActions(obj)} 
-			onActionSelect={me.onActionSelect} 
-			onSelect={this.onSelect}/>);
+	renderRow: function (obj) {
+		var me = this;
+		return (<StockItem key={obj.code} id={obj.code} data={obj}
+			actions={me.getActions(obj)}
+			onActionSelect={me.onActionSelect}
+			onSelect={this.onSelect} />);
 	},
-	render: function() {
+	render: function () {
 
-		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.code !== r2.code});
+		var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.code !== r2.code });
 		return (
-			<PullToRefreshView 
-		        style={styles.container}
-		        ref={(control)=>this._refresh=control}
-		        onRefresh={this.onRefresh}>     
-	             <ListView
-	              pageSize={10}
-		          dataSource={ds.cloneWithRows(this.props.data)}
-		          renderRow={this.renderRow}/>  
-	        </PullToRefreshView>  
+			<PullToRefreshView
+				style={styles.container}
+				ref={(control) => this._refresh = control}
+				onRefresh={this.onRefresh}>
+				<ListView
+					enableEmptySections={true}
+					pageSize={10}
+					dataSource={ds.cloneWithRows(this.props.data)}
+					renderRow={this.renderRow} />
+
+			</PullToRefreshView>
 		);
 	}
 });
-	      //       <ScrollView style={{flex:1}}>			
-			  		// {this.createRows()}
-	      //       </ScrollView>   
+//       <ScrollView style={{flex:1}}>			
+// {this.createRows()}
+//       </ScrollView>   
 
 var styles = StyleSheet.create({
-	container:{
-		flex:1
+	container: {
+		flex: 1
 	}
 });
 

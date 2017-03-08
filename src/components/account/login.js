@@ -1,7 +1,16 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  NativeAppEventEmitter,
+  Text,
+  ToastAndroid
+} from 'react-native';
+
 var Button = require('../control/button');
 var Titlebar = require('../control/titlebar');
 var dataUser=require('../../actions/dataUser');
@@ -12,14 +21,6 @@ var {
   OAuthLogin
 } = require('react-native-android-lib');
 
-var {
-  StyleSheet,
-  View,
-  TextInput,
-  NativeAppEventEmitter,
-  Text,
-  ToastAndroid
-} = React;
 
 var Login = React.createClass({
   getInitialState: function () {
@@ -43,7 +44,9 @@ var Login = React.createClass({
       //console.log(data);
       
       dataUser.saveLocalInfo(data);
+      // debugger;
       UserAction.updateInfo(data);
+      // debugger;
       dataUser.saveSSOAcount(data,
         function (obj) {         
 
@@ -75,14 +78,24 @@ var Login = React.createClass({
       <View style={styles.container}>
         <Titlebar showBack={true}/>
         <View style={styles.title}>
-          <Text style={styles.titleText}>第三方登录</Text>
+              <Text style={styles.titleText}>第三方登录</Text>
         </View>
         <Button text={"微信"} color={"#6EB244"}  icon={"fontawesome|wechat"}   style={styles.loginBtn} onPress={this.bindTarget('weixin') }/>
         <Button text={"QQ"} color={"#5a98de"}  icon={"fontawesome|qq"}  style={styles.loginBtn} onPress={this.bindTarget('qq') }/>
+
+        <Button text={"测试"} color={"#5a98de"}  style={styles.loginBtn} onPress={this.verify}/>
+        <Button text={"新浪"} color={"#D25E52"}  icon={"fontawesome|weibo"}  style={styles.loginBtn} onPress={this.bindTarget('sina') }/>
       </View>
     );
   }
 });
+//<Titlebar showBack={true}/>
+// <View style={styles.title}>
+//          <Text style={styles.titleText}>第三方登录</Text>
+//        </View>
+//        <Button text={"微信"} color={"#6EB244"}  icon={"fontawesome|wechat"}   style={styles.loginBtn} onPress={this.bindTarget('weixin') }/>
+//        <Button text={"QQ"} color={"#5a98de"}  icon={"fontawesome|qq"}  style={styles.loginBtn} onPress={this.bindTarget('qq') }/>
+//
 //  <Button text={"测试"} color={"#5a98de"}  style={styles.loginBtn} onPress={this.verify}/>
 //        <Button text={"新浪"} color={"#D25E52"}  icon={"fontawesome|weibo"}  style={styles.loginBtn} onPress={this.bindTarget('sina') }/>
 

@@ -1,18 +1,18 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
-var {ColorConfig}=require('../../config');
-var techStore = require('../../stores/techStore');
-var techAction =require('../../actions/techAction');
-var TimerMixin = require('react-timer-mixin');
-var {
+import React, { Component } from 'react';
+import {
   StyleSheet,
   View,
   Text,
   TouchableNativeFeedback,
-  TouchableWithoutFeedback
-} = React;
+} from 'react-native';
+
+var {ColorConfig}=require('../../config');
+var techStore = require('../../stores/techStore');
+var techAction =require('../../actions/techAction');
+var TimerMixin = require('react-timer-mixin');
 
 var TechBtn=React.createClass({
 

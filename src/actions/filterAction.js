@@ -7,17 +7,21 @@ var {
 
 class FilterActions {
 	select(name, index,multiselect) {
-		this.dispatch({
-			name: name,
-			index: index,
-			multiselect:multiselect
-		});
+		return (dispatch)=>{
+			dispatch({
+				name: name,
+				index: index,
+				multiselect:multiselect
+			});
+		}
 	}
 	load(){
 		var me=this;
-		filterConfig.get(function (err,data) {
-			me.dispatch(data);
-		});
+		return (dispatch)=>{
+			filterConfig.get(function (err,data) {
+				dispatch(data);
+			});
+		}
 	}
 	save(values) {
 		filterConfig.save(values);

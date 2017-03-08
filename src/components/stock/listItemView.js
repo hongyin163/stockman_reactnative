@@ -1,20 +1,18 @@
 'use strict';
 
-var React = require('react-native');
-var myStockAction=require('../../actions/myStockAction');
-var TextButton=require('../control/button');
-var NavAction=require('../../actions/navigationAction');
-var StockDetail=require('./stockDetail');
-var {
-  TouchableHighlight,
-  TouchableNativeFeedback,
-  ScrollView,
+import React, { Component } from 'react';
+import {
   StyleSheet,
   View,
   Image,
   Text,
   NativeAppEventEmitter
-} = React;
+} from 'react-native';
+
+var myStockAction=require('../../actions/myStockAction');
+var TextButton=require('../control/button');
+var NavAction=require('../../actions/navigationAction');
+var StockDetail=require('./stockDetail');
 /*            { name: 'id', type: 'string' },//0
             { name: 'date', type: 'string' },//0
             { name: 'code', type: 'string' },//0

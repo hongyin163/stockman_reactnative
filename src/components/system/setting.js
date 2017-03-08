@@ -1,14 +1,13 @@
 'use strict';
-var React = require('react-native');
-var Titlebar=require('../control/titlebar');
-var {
-  Image,
-  ListView,
-  TouchableHighlight,
+
+import React,{Component} from 'react';
+import {
   StyleSheet,
   Text,
   View,
-} = React;
+} from 'react-native';
+
+var Titlebar=require('../control/titlebar');
 var styles=StyleSheet.create({
 	container:{
 		flex:1,

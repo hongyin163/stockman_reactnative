@@ -10,7 +10,6 @@ class LocalListStore{
 		this.key=key;
 	}
 	save(stocks,callback){
-		debugger;
 		AsyncStorage.setItem(this.key,JSON.stringify(stocks),function (error) {
 			callback&&callback(error);
 		});

@@ -1,7 +1,14 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  View,
+  IntentAndroid,
+  NativeAppEventEmitter
+} from 'react-native';
+
 var { Icon, } = require('react-native-icons');
 var IconButton=require('./control/button');
 var Titlebar=require('./control/titlebar');
@@ -10,12 +17,7 @@ var StockRecoCross=require('./stock/stockRecoCross');
 var StockRecoRank=require('./stock/stockRecoRank');
 var StockRecoState=require('./stock/stockRecoState');
 var SubApp=require('./control/subApp');
-var {
-  StyleSheet,
-  View,
-  IntentAndroid,
-  NativeAppEventEmitter
-} = React;
+
 var host='http://www.mandata.cn/weixin';
 var actions={
 	'recommend':'/app/stock/index.html#/list/rank',
@@ -24,7 +26,7 @@ var actions={
 	'forecast':'/app/stock/view/forecast.html',
 	'practice':'/app/stock/view/practice.html'
 }
-var Component = React.createClass({
+var Discovery = React.createClass({
 	open:function  (url) {
 	    // IntentAndroid.canOpenURL(url, (supported) => {
 	    //   if (supported) {
@@ -80,4 +82,4 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports = Component;
+module.exports = Discovery;

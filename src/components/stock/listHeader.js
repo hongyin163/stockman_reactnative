@@ -1,21 +1,17 @@
 /* @flow */
 'use strict';
-
-var React = require('react-native');
-var DataAdapter=require('../chart/techDataAdapter');
-var { Icon, } = require('react-native-icons');
-var {
-  ScrollView,
+import React, { Component } from 'react';
+import {
   StyleSheet,
   View,
   Image,
   Text,
   TouchableNativeFeedback,
-  InteractionManager,
-  PullToRefreshViewAndroid,
-  ToastAndroid,
-  Dimensions
-} = React;
+} from 'react-native';
+
+
+var DataAdapter=require('../chart/techDataAdapter');
+var { Icon, } = require('react-native-icons');
 var {
   ToolbarAndroid
 }=require('react-native-android-lib');
@@ -88,18 +84,17 @@ var ListHeader = React.createClass({
 	          <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}
 	              onPress={this.onOpenTech}>    
 	            <View style={styles.head}>
-	              <Text style={styles.headText}>{this.state.tech.name}</Text>
-	              <ToolbarAndroid ref={(contrl)=>this._techTool=contrl} 
-	                actions={this.state.techList} 
-	                style={{width:5,height:35,opacity:0}}
-	                onActionSelected={this.onTechSelected} />
+	              <Text style={styles.headText}>{this.state.tech.name}</Text>	        
+								<ToolbarAndroid ref={(contrl)=>this._techTool=contrl} 
+														actions={this.state.techList} 
+														style={{width:5,height:35,opacity:0}}
+														onActionSelected={this.onTechSelected} />
 	            </View>
 	          </TouchableNativeFeedback>      
 	        </View>
 	    );
 	  }
 	});
-
 
 var styles = StyleSheet.create({
 	head:{flexDirection:'row', flex:1, justifyContent :'center',alignItems: 'center',},

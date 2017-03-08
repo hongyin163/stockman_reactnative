@@ -1,7 +1,16 @@
 /* @flow */
 'use strict';
 
-var React = require('react-native');
+
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  InteractionManager
+} from 'react-native';
 
 var Titlebar=require('../control/titlebar');
 var IconButton=require('../control/button');
@@ -14,14 +23,6 @@ var {
   SpeechRecognizer
 }=require('react-native-voise');
 var { Icon, } = require('react-native-icons');
-var {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  InteractionManager
-} = React;
 
 
 var Item = React.createClass({
@@ -70,7 +71,7 @@ var Item = React.createClass({
 
 
 
-var Component = React.createClass({
+var Add = React.createClass({
 	getInitialState: function() {
 		return StockStore.getState();
 	},
@@ -199,5 +200,5 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports = Component;
+module.exports = Add;
 

@@ -1,3 +1,10 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ */
+
+/// <reference path="./.vscode/typings/react-native/react-native.d.ts" />
+
 'use strict';
 
 import React, { Component } from 'react';
@@ -15,9 +22,9 @@ import {
   Dimensions 
 } from 'react-native';
 
-import  Index from './src/index';
+// import  Index from './src/index';
 
-// import Login from './src/components/account/login';
+import Login from './src/components/account/login';
 
 // var Filter=require('./src/components/system/filter');
 
@@ -187,4 +194,4 @@ import  Index from './src/index';
 // });
 
 
-AppRegistry.registerComponent('stock', () => Index);
+AppRegistry.registerComponent('stock', () => Login);

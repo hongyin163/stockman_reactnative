@@ -10,11 +10,11 @@ var {
 	AsyncStorage,
 } = React;
 
-var host = 'http://www.mandata.cn/';
+var host = 'http://www.mandata.cn:8081/';
 
 const urls = {
-	GETMYPOSITION: host + 'WebService/api/trade/getMyPosition/',
-	GETRECENTTRADES: host + 'WebService/api/trade/getRecentTrades/',
+	GETMYPOSITION: host + 'api/trade/getMyPosition/',
+	GETRECENTTRADES: host + 'api/trade/getRecentTrades/',
 }
 var obj = {
 	getMyPosition: function(user_id,cb) {

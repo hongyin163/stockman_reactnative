@@ -40,11 +40,11 @@ var {
       FindStockRankBy
 } = require('./data.js')
 
-var host = 'http://www.mandata.cn/';
+var host = 'http://www.mandata.cn:8081/';
 module.exports = {
       getStockInfo: function(ids, callback) {
             // //body...
-            var url = host + 'WebService/api/stock/GetStocks/' + ids
+            var url = host + 'api/stock/GetStocks/' + ids
             util.get(url, function(stocks) {
                   if (stocks.length > 0)
                         callback && callback(stocks[0]);
@@ -56,7 +56,7 @@ module.exports = {
       //获取最近价格
       getPrice: function(ids, callback) {
             var me = this;
-            var url = host + 'WebService/api/stock/GetPrice/' + ids;
+            var url = host + 'api/stock/GetPrice/' + ids;
             util.get(url, function(infos) {
                   var state = {};
                   infos.map(function(item, i) {
@@ -76,7 +76,7 @@ module.exports = {
       },
       getState: function(ids, techCode, callback) {
             var me = this;
-            var url = host + 'WebService/api/index/GetState/' + ids;
+            var url = host + 'api/index/GetState/' + ids;
             util.get(url, function(stateInfo) {
                   var state = {};
                   stateInfo.map(function(item, i) {
@@ -92,7 +92,7 @@ module.exports = {
             // callback&&callback(state);
       },
       getKData: function(code, cycle, cate, callback) {
-            var url = host + 'WebService/api/Object/GetKData/' + code + '/' + cycle + '/' + cate;
+            var url = host + 'api/Object/GetKData/' + code + '/' + cycle + '/' + cate;
             util.get(url, function(infos) {
                   callback && callback(infos);
             });
@@ -104,7 +104,7 @@ module.exports = {
             // callback&&callback(obj[cycle]);
       },
       getKDataAllCycle: function(code, cate, callback) {
-            var url = host + 'WebService/api/Object/GetKDataAllCycle/' + code + '/' + cate;
+            var url = host + 'api/Object/GetKDataAllCycle/' + code + '/' + cate;
             util.get(url, function(infos) {
                   callback && callback(infos);
             });
@@ -119,7 +119,7 @@ module.exports = {
       },
       findStockRankBy: function(cate, techIds, callback) {
             var me = this;
-            var url = host + 'WebService/api/stock/FindStockRankBy';
+            var url = host + 'api/stock/FindStockRankBy';
             var def = {
                   "user_id": "guest",
                   "cate": '0000001,1399001,1399006',
@@ -143,7 +143,7 @@ module.exports = {
       getRecoCateCount: function(cates, callback) {
             var me = this;
 
-            var url = host + 'WebService/api/stock/GetRecoCateCount';
+            var url = host + 'api/stock/GetRecoCateCount';
             var def = {
                   "user_id": "guest",
                   "cate": cates,
@@ -164,7 +164,7 @@ module.exports = {
       findCrossStock: function(cycle, callback) {
 
             var me = this;
-            var url = host + 'WebService/api/stock/FindCrossStock';
+            var url = host + 'api/stock/FindCrossStock';
             var def = {
                   "cycle": "day",
                   "cate": '0000001,1399001,1399006',
@@ -183,7 +183,7 @@ module.exports = {
       },
       findStateStock: function(cycle, callback) {
             var me = this;
-            var url = host + 'WebService/api/stock/FindStateStock';
+            var url = host + 'api/stock/FindStateStock';
             var def = {
                   "cycle": "day",
                   "user_id": "guest",
@@ -232,7 +232,7 @@ module.exports = {
       downLoad: function(user_id, callback) {
             var me = this;
             //从服务器加载数据到本地
-            var url = host + 'WebService/api/stock/GetMyStocks/' + user_id;
+            var url = host + 'api/stock/GetMyStocks/' + user_id;
             util.get(url, function(syncStock) {
 
                   var mystock = [];
@@ -305,7 +305,7 @@ module.exports = {
                                     sort: stock.sort
                               };
                         });
-                        var url = host + 'WebService/api/stock/PostMyStocks';
+                        var url = host + 'api/stock/PostMyStocks';
                         util.post(url, {
                               user_id: user.id,
                               stocks: stockList

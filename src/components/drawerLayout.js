@@ -1,9 +1,8 @@
 
 'use strict';
 
-var React=require('react-native');
-var {
-  DrawerLayoutAndroid
-}=React;
+import {
+	DrawerLayoutAndroid,
+} from 'react-native';
 
 export default DrawerLayoutAndroid;

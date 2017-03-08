@@ -1,5 +1,17 @@
 
-var React = require('react-native');
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Navigator,
+  DeviceEventEmitter,
+  NativeAppEventEmitter,
+  Animated,
+  BackAndroid,
+  Component
+} from 'react-native'
+
 var SideMenu = require('./libs/react-native-side-menu');
 var Menu=require('./components/menu');
 var TextButton=require('./components/control/button');
@@ -10,17 +22,6 @@ var StockDetail=require('./components/stock/stockDetail');
 
 
 
-const {
-  StyleSheet,
-  Text,
-  View,
-  Navigator,
-  DeviceEventEmitter,
-  NativeAppEventEmitter,
-  Animated,
-  BackAndroid,
-  Component
-} = React;
 
 const styles = StyleSheet.create({
   button: {
