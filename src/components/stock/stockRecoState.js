@@ -58,7 +58,7 @@ var scrollView = React.createClass({
   componentWillUnmount: function () {
     myStockStore.unlisten(this.onChange);
   },
-  onChange: function (state) {
+  onChange: function (store) {
     this.setState(function (state) {
       for (var p in store) {
         state[p] = store[p];
@@ -166,6 +166,7 @@ var scrollView = React.createClass({
         stockRows.push(<View key={"placeholder"} style={{ flex: 1 }}></View>);
       } else {
         stockRows.push(<RefreshListView
+          key={'stockRecoStateList'}
           style={styles.container}
           ref={(control) => this._stockList = control}
           onRefresh={this.reloadData}

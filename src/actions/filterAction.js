@@ -18,6 +18,7 @@ class FilterActions {
 	load(){
 		var me=this;
 		return (dispatch)=>{
+			debugger;
 			filterConfig.get(function (err,data) {
 				dispatch(data);
 			});

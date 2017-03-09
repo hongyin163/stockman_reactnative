@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 var Titlebar = require('../control/titlebar');
-var {ColorConfig} = require('../../config');
+var { ColorConfig } = require('../../config');
 
 var filterStore = require('../../stores/filterStore');
 var filterAction = require('../../actions/filterAction');
@@ -140,23 +140,29 @@ var Filter = React.createClass({
 	},
 	componentDidMount: function () {
 		filterStore.listen(this.onChange);
-		filterAction.load();
+		// filterAction.load();
 	},
 	componentWillUnmount: function () {
 		filterStore.unlisten(this.onChange);
 	},
-	onChange: function (state) {
-		this.setState(state);
+	onChange: function (store) {
+		this.setState(function (state) {
+			for (var p in store) {
+				state[p] = store[p];
+			}
+		});
 	},
 	onSelect: function (argument) {
 		this.setState(this.state);
 	},
 	getOptionRows: function (argument) {
 		var me = this;
+
+		debugger;
 		var data = this.state.data;
 		var rows = [];
 		for (var pro in data) {
-			rows.push(<FilterItem key={'filter_' + pro} data={data[pro]} name={pro} onSelect={me.onSelect} />)
+			rows.push(<FilterItem key={'filter_' + pro} data={data[pro]} name={pro}  />)
 		}
 		return rows;
 	},

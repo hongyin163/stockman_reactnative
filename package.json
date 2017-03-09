@@ -15,7 +15,7 @@
     "react-native-chart-android": "^1.0.8",
     "react-native-icons": "^0.7.1",
     "react-native-scrollable-tab-view": "^0.7.2",
-    "react-native-voise": "^1.0.1"
+    "react-native-voise": "^1.0.2"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",

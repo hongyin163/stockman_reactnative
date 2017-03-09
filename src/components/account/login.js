@@ -29,7 +29,6 @@ var Login = React.createClass({
       password: '',
       nickname: ''
     };
-
   },
   _login:null,
   onLogin: function (target) {
@@ -82,13 +81,11 @@ var Login = React.createClass({
         </View>
         <Button text={"微信"} color={"#6EB244"}  icon={"fontawesome|wechat"}   style={styles.loginBtn} onPress={this.bindTarget('weixin') }/>
         <Button text={"QQ"} color={"#5a98de"}  icon={"fontawesome|qq"}  style={styles.loginBtn} onPress={this.bindTarget('qq') }/>
-
-        <Button text={"测试"} color={"#5a98de"}  style={styles.loginBtn} onPress={this.verify}/>
-        <Button text={"新浪"} color={"#D25E52"}  icon={"fontawesome|weibo"}  style={styles.loginBtn} onPress={this.bindTarget('sina') }/>
       </View>
     );
   }
 });
+//        <Button text={"新浪"} color={"#D25E52"}  icon={"fontawesome|weibo"}  style={styles.loginBtn} onPress={this.bindTarget('sina') }/>
 //<Titlebar showBack={true}/>
 // <View style={styles.title}>
 //          <Text style={styles.titleText}>第三方登录</Text>

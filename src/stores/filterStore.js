@@ -106,7 +106,12 @@ class FilterStore {
 		this.data[name].options[index]['selected'] = !this.data[name].options[index]['selected'];
 	}
 	handleLoad(data) {
+		debugger;
 		var me = this;
+		if(Object.keys(data).length==0){
+			return;
+		}
+		
 		for (var pro in me.data) {
 			me.data[pro].options.forEach((p) => {
 				if (data[pro].indexOf(p[0])>=0) {
