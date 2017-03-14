@@ -13,14 +13,17 @@ import {
 
 var Button = require('../control/button');
 var Titlebar = require('../control/titlebar');
-var dataUser=require('../../actions/dataUser');
+var dataUser = require('../../actions/dataUser');
 var UIManager = require('UIManager');
-var Nav=require('../nav');
-var UserAction=require('../../actions/userAction');
+var Nav = require('../nav');
+var UserAction = require('../../actions/userAction');
 var {
   OAuthLogin
 } = require('react-native-android-lib');
 
+var {
+  PlatformConfig
+} = require('../../config');
 
 var Login = React.createClass({
   getInitialState: function () {
@@ -30,33 +33,33 @@ var Login = React.createClass({
       nickname: ''
     };
   },
-  _login:null,
+  _login: null,
   onLogin: function (target) {
     OAuthLogin.setConfig({
-      'weixin': ['wxb12125f183776372', '95ee719075fceee12615f4d85d59dfd5'],
+      'weixin': [PlatformConfig.wx.api_key, PlatformConfig.wx.secret_key],
       'sina': ['1505531472', '88490537c7f79c0ad074254f6367cd28'],
       'qq': ['1103536633', 'oZpzpHzkiFjK8nQ6']
     });
     // this._login.login(target);
-    OAuthLogin.login(target,function (data) {
-     
+    OAuthLogin.login(target, function (data) {
+
       //console.log(data);
-      
+
       dataUser.saveLocalInfo(data);
       // debugger;
       UserAction.updateInfo(data);
       // debugger;
       dataUser.saveSSOAcount(data,
-        function (obj) {         
+        function (obj) {
 
           //ToastAndroid.show('登录成功', ToastAndroid.SHORT);         
           //Nav.back();
         },
-        function(error){
-            //ToastAndroid.show('登录失败', ToastAndroid.SHORT);    
-            //Nav.back();
+        function (error) {
+          //ToastAndroid.show('登录失败', ToastAndroid.SHORT);    
+          //Nav.back();
         });
-       Nav.back();
+      Nav.back();
     });
   },
   bindTarget: function (target) {
@@ -65,22 +68,22 @@ var Login = React.createClass({
       me.onLogin(target);
     }
   },
-  verify:function (argument) {
-    OAuthLogin.verify(function (success,data) {
+  verify: function (argument) {
+    OAuthLogin.verify(function (success, data) {
       // console.log(data);
-      ToastAndroid.show(data+"", ToastAndroid.SHORT);   
+      ToastAndroid.show(data + "", ToastAndroid.SHORT);
       // body...
     });
   },
   render: function () {
     return (
       <View style={styles.container}>
-        <Titlebar showBack={true}/>
+        <Titlebar showBack={true} />
         <View style={styles.title}>
-              <Text style={styles.titleText}>第三方登录</Text>
+          <Text style={styles.titleText}>第三方登录</Text>
         </View>
-        <Button text={"微信"} color={"#6EB244"}  icon={"fontawesome|wechat"}   style={styles.loginBtn} onPress={this.bindTarget('weixin') }/>
-        <Button text={"QQ"} color={"#5a98de"}  icon={"fontawesome|qq"}  style={styles.loginBtn} onPress={this.bindTarget('qq') }/>
+        <Button text={"微信"} color={"#6EB244"} icon={"fontawesome|wechat"} style={styles.loginBtn} onPress={this.bindTarget('weixin')} />
+        <Button text={"QQ"} color={"#5a98de"} icon={"fontawesome|qq"} style={styles.loginBtn} onPress={this.bindTarget('qq')} />
       </View>
     );
   }
@@ -98,7 +101,7 @@ var Login = React.createClass({
 
 
 var styles = StyleSheet.create({
- 	container: {
+  container: {
     flex: 1,
     backgroundColor: "#ffffff"
   },

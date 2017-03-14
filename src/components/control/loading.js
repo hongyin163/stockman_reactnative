@@ -28,7 +28,7 @@ var Loading = React.createClass({
   render: function () {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator animating={this.state.show} style={[styles.centering, { opacity: this.state.show ? 1.0 : 0.0 }]} size={80} color={ColorConfig.baseColor} />
+        <ActivityIndicator animating={this.state.show} style={[styles.centering, { opacity: this.state.show ? 1.0 : 0.0 }]} size={50} color={ColorConfig.baseColor} />
         <Text>加载中...</Text>
       </View>
     );
@@ -38,8 +38,8 @@ var Loading = React.createClass({
 /**/
 var styles = StyleSheet.create({
   centering: {
-    height: 80,
-    width: 80
+    height: 50,
+    width: 50
   },
   loading: {
     flex: 1,

@@ -54,11 +54,12 @@ var Item = React.createClass({
 	},
 	getIcons: function () {
 		var ibtns = [];
-		if (this.state.data.exist) {
-			ibtns.push(<IconButton onPress={this.onRemove} icon={"fontawesome|minus"} color={"#000"} />);
+		var data = this.state.data;
+		if (data.exist) {
+			ibtns.push(<IconButton key={"remove"} onPress={this.onRemove} icon={"fontawesome|minus"} color={"#000"} />);
 		}
 		else {
-			ibtns.push(<IconButton onPress={this.onAdd} icon={"fontawesome|plus"} color={"#000"} />);
+			ibtns.push(<IconButton key={"add"} onPress={this.onAdd} icon={"fontawesome|plus"} color={"#000"} />);
 		}
 		return ibtns;
 	},
@@ -88,8 +89,12 @@ var Add = React.createClass({
 	componentWillUnmount: function () {
 		StockStore.unlisten(this.onChange);
 	},
-	onChange: function (state) {
-		this.setState(state);
+	onChange: function (store) {
+		this.setState(function (state) {
+			for (var p in store) {
+				state[p] = store[p];
+			}
+		});
 	},
 	getSearchResult: function () {
 		var me = this;

@@ -112,7 +112,7 @@ var scrollView = React.createClass({
     var stockRows = [];
     if (this.state.errorMessage) {
       stockRows.push(<View key={"placeholder"} style={{ flex: 1 }}></View>);
-      //ToastAndroid.show(this.state.errorMessage+"",ToastAndroid.LONG);
+      ToastAndroid.show(this.state.errorMessage+"",ToastAndroid.LONG);
     }
     else {
       stockRows.push(<StockList key={'StockList'} ref={(n) => this._stockList = n} onRefresh={this.reloadData} data={this.state.stockList} />)

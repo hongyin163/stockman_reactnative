@@ -70,6 +70,7 @@ var OptionItem = React.createClass({
 		var optionRows = me.state.data.options.map((data, i) => {
 			return <Item key={'filteritem_' + me.state.data.name + '_' + i} data={data} multiselect={me.state.data.multiselect ? true : false} name={me.props.name} index={i} onSelect={me.onSelect} />
 		});
+
 		return (
 			<View style={opstyle.container}>
 				<View style={opstyle.titleContainer}>
@@ -86,7 +87,6 @@ var OptionItem = React.createClass({
 
 var opstyle = StyleSheet.create({
 	container: {
-		flex: 1,
 		padding: 5,
 		backgroundColor: '#fff'
 	},
@@ -99,12 +99,13 @@ var opstyle = StyleSheet.create({
 		// backgroundColor:'red'
 	},
 	opcontainer: {
-		flexDirection: 'row', flex: 1, flexWrap: 'wrap'
+		flexDirection: 'row', flexWrap: 'wrap'
 		// justifyContent :'center',
 		// alignItems: 'center',
 	},
 	option: {
 		width: (SCREEN_WIDTH - 10) / 4 - 2,
+		height:50,
 		backgroundColor: '#f5f5f5',
 		justifyContent: 'center',
 		alignItems: 'center',

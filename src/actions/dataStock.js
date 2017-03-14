@@ -40,7 +40,11 @@ var {
       FindStockRankBy
 } = require('./data.js')
 
-var host = 'http://www.mandata.cn:8081/';
+var {
+	ServerConfig
+} = require('../config');
+var host = ServerConfig.host;
+
 module.exports = {
       getStockInfo: function(ids, callback) {
             // //body...
@@ -358,6 +362,7 @@ module.exports = {
             fetch(url)
                   .then((response) => response.text())
                   .then((responseText) => {
+                        debugger;
                         eval(responseText)
                         console.log(responseText);
                   })

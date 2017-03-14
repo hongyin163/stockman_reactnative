@@ -147,7 +147,7 @@ class MyStockActions {
       last_week: 0,
       last_month: 0
     };
-    this.dispatch(obj);
+    return (dispatch)=>dispatch(obj);
   }
   remove(code) {
     return (dispatch) => dispatch(code);

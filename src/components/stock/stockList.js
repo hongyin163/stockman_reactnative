@@ -41,13 +41,15 @@ var ObjectList = React.createClass({
 		var actions = [
 			{
 				title: data.inhand ? '标为空仓' : '标为持仓',
-				width: 80
+				width: 100
 			},
 			{
-				title: '置顶'
+				title: '置顶',
+				width:60
 			},
 			{
-				title: '删除'
+				title: '删除',
+				width:60
 			}
 		];
 		return actions;

@@ -140,7 +140,7 @@ var Filter = React.createClass({
 	},
 	componentDidMount: function () {
 		filterStore.listen(this.onChange);
-		// filterAction.load();
+		filterAction.load();
 	},
 	componentWillUnmount: function () {
 		filterStore.unlisten(this.onChange);
@@ -162,14 +162,15 @@ var Filter = React.createClass({
 		var data = this.state.data;
 		var rows = [];
 		for (var pro in data) {
-			rows.push(<FilterItem key={'filter_' + pro} data={data[pro]} name={pro}  />)
+			rows.push(<FilterItem key={'filter_' + pro} data={data[pro]} name={pro}  />);
 		}
-		return rows;
+		return rows
 	},
 	onSave: function (argument) {
 		filterAction.save(this.state.getValues());
 	},
 	render: function () {
+
 		return (
 			<View style={styles.container}>
 				<Titlebar showBack={true} title={"数据过滤"} onBack={this.onSave} />
