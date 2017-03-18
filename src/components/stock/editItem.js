@@ -200,9 +200,9 @@ var Stock = React.createClass({
   propTypes: {
     actions: React.PropTypes.array
   },
-  getInitState: function () {
+  getInitialState: function () {
     return {
-      data: this.props.data
+      visible: true
     };
   },
   _panResponder: {},
@@ -413,8 +413,16 @@ var Stock = React.createClass({
   bindAction: function (action) {
     var me = this;
     return function () {
-      me._rowViewStyle.style.right.setValue(0);
-      me.props.onActionSelect && me.props.onActionSelect(action, me.props.data);
+      if (action.title == '删除') {
+        me.setState(function (state) {
+          state.visible = false;
+        });
+      }
+      setTimeout(function () {
+        me._rowViewStyle.style.right.setValue(0);
+        me.props.onActionSelect && me.props.onActionSelect(action, me.props.data);
+      }, 50);
+
     }
   },
   getActionsBar: function (argument) {
@@ -475,12 +483,16 @@ var Stock = React.createClass({
     }
   },
   render: function () {
-    var stock = this.props.data;
+    var me = this;
+    if (!me.state.visible) {
+      return <View></View>;
+    }
+    var stock = me.props.data;
     return (
       <View style={styles.container}>
-        {this.getActionsBar()}
-        {this.getRowView()}
-        <TechChartList ref={(control) => this._techList = control} code={this.props.data.code} />
+        {me.getActionsBar()}
+        {me.getRowView()}
+        <TechChartList ref={(control) => me._techList = control} code={me.props.data.code} />
       </View>
     );
   }

@@ -150,7 +150,9 @@ class MyStockActions {
     return (dispatch)=>dispatch(obj);
   }
   remove(code) {
-    return (dispatch) => dispatch(code);
+    return (dispatch) => {
+      dispatch(code);
+    }
   }
   setInHand(code, inhand) {
     return (dispatch) => {

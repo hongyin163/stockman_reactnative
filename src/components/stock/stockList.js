@@ -94,7 +94,12 @@ var ObjectList = React.createClass({
 	},
 	render: function () {
 
-		var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.code !== r2.code });
+		var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) =>{
+			
+			 return r1.code != r2.code
+
+			}
+		 });
 		return (
 			<PullToRefreshView
 				style={styles.container}

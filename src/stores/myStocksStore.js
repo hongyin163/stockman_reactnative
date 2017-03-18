@@ -34,6 +34,7 @@ class MyStocksStore {
 		this.isLoading = false;
 		//this.loadingText="加载中..."
 		this.sort = '';
+		this.action = '';
 		this.tech = {
 			code: 'T0001',
 			name: 'MACD'
@@ -57,18 +58,22 @@ class MyStocksStore {
 		var me = this;
 		me.stockList = stocks;
 		// me.isLoading=false;
+		me.action='loadMystock';
 		me.errorMessage = null;
 	}
 	handleDownLoadMyStock(stocks) {
+		me.action='downLoadMyStock';
 		this.stockList = stocks;
 		this.syncToLocal();
 	}
 	handleUpdatePrice(stocks) {
+		me.action='updatePrice';
 		this.stockList = stocks;
 		// this.isLoading=false;
 		this.errorMessage = null;
 	}
 	handleUpdateState(stocks) {
+		me.action='updateState';
 		this.stockList = stocks;
 		// this.isLoading=false;
 		this.errorMessage = null;
@@ -95,6 +100,7 @@ class MyStocksStore {
 				target.sort = sortList[0].sort + 10;
 			me.stockList = me.sortList(me.stockList, me.sort);
 		}
+		me.action='setTop';
 		me.syncToLocal();
 	}
 	handleAdd(stock) {
@@ -113,6 +119,7 @@ class MyStocksStore {
 				return;
 			}
 		}
+		me.action='add';
 		this.stockList.push(stock);
 		this.handleSetTop(stock.code);
 	}
@@ -132,6 +139,7 @@ class MyStocksStore {
 				n = i;
 			}
 		});
+		me.action = 'remove';
 		me.stockList.splice(n, 1);
 		me.syncToLocal();
 	}

@@ -1,48 +1,68 @@
+var dataUser = require('./dataUser');
+
 module.exports = {
-	get: function(url, successCallback,errorCallback) {
-		fetch(url, {
+	_token: '',
+
+	get: function (url, successCallback, errorCallback) {
+		var me = this;
+		me.getToken(function (token) {
+			fetch(url, {
 				method: 'GET',
 				headers: {
 					'Accept': 'application/json',
 					'Origin': 'http://localhost',
-					'Authorization': 'Basic Z3Vlc3Q6Z3Vlc3Q='
+					'Authorization': token
 				}
-			})
-			.then((response) => {
+			}).then((response) => {
 				return response.json()
-			})
-			.then((responseJson) => {
+			}).then((responseJson) => {
 				successCallback && successCallback(responseJson);
-			})
-			.catch((error) => {
-				errorCallback&&errorCallback(error);
+			}).catch((error) => {
+				errorCallback && errorCallback(error);
 			});
+		})
 	},
-	post: function(url, data, successCallback,errorCallback) {
+	post: function (url, data, successCallback, errorCallback) {
+		var me = this;
+		me.getToken(function (token) {
 			fetch(url, {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
 					'Origin': 'http://localhost',
 					'Content-Type': 'application/json',
-					'Authorization': 'Basic Z3Vlc3Q6Z3Vlc3Q='
+					'Authorization': token
 				},
 				body: JSON.stringify(data)
-			})
-			.then((response) => {
+			}).then((response) => {
 				if (response.status == 200)
 					return response.json();
-				else					
+				else
 					throw new Error(response.status, response.statusText);
-			})
-			.then((responseJson) => {
+			}).then((responseJson) => {
 				successCallback && successCallback(responseJson);
-			})
-			.catch((error) => {
+			}).catch((error) => {
 				errorCallback && errorCallback(error.message);
 			});
+		})
 	},
-	getAvg: function(c1, data, i) {
+	getToken: function (callback) {
+		var me = this;
+		if (me._token) {
+			callback && callback(me._token);
+			return;
+		}
+		dataUser.getLocalInfo(function (err, user) {
+			if (err) {
+				me._token = 'Basic ' + btoa('guest:guest');
+				callback && callback(me._token);
+			} else {
+				me._token = 'Basic ' + btoa(user.username + ':' + user.password);
+				callback && callback(me._token);
+			}
+		})
+	},
+	getAvg: function (c1, data, i) {
 		var v = 0;
 		if (i >= c1) {
 			var n = 0;
