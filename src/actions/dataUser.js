@@ -18,7 +18,7 @@ var host = ServerConfig.host;
 module.exports = {
 	saveSSOAcount: function(user,success,error) {
 		var url = host + 'api/users/SaveSSOAcount';
-
+		debugger;
 		util.post(url, {
 			id: user.id,
 			name: user.username,

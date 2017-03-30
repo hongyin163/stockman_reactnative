@@ -88,9 +88,9 @@ var KChart = React.createClass({
 	_offset: 0,
 	_isZoom: false,
 	onScroll: function (e) {
-		// debugger;
+		// 
 		var me = this;
-		debugger;
+		
 		var state = me.state.data.toJS();
 		if (e.nativeEvent.contentOffset.y > me._offset) {
 			if (!me._isZoom) {
@@ -211,11 +211,11 @@ var RecommentStock = React.createClass({
 		});
 	},
 	loadData: function () {
-		debugger;
+		
 		myStockAction.loadRecommendStock(this.props.code);
 	},
 	render: function () {
-		debugger;
+		
 		var recoList = [];
 		if (this.state.list.length > 0) {
 			recoList.push(<StockList key={'StockList'} style={{ flex: 1 }} data={this.state.list} />)
@@ -307,7 +307,7 @@ var StockDetail = React.createClass({
 		});
 	},
 	onPageSelected: function (obj) {
-		// debugger;
+		// 
 		if (obj.i == 1) {
 			this._recoStock.loadData();
 		}

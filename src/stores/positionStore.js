@@ -3,13 +3,14 @@ var actions = require('../actions/cloudAction');
 
 class PositionAddStore {
 	constructor() {
-		this.data = {}
+		this.list = [];
 		this.bindListeners({
 			handleLoadMyPosition: actions.LOAD_MY_POSITION
 		});
 	}
 	handleLoadMyPosition(data) {
-		this.data = data;
+		debugger;
+		this.list = data;
 	}
 }
 module.exports = alt.createStore(PositionAddStore, 'PositionAddStore');

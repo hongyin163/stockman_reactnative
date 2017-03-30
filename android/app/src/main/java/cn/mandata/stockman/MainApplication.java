@@ -9,6 +9,7 @@ import cn.mandata.react_native_voise.BaiduVoiseLibPackage;
 import com.smixx.reactnativeicons.IconFont;
 import com.smixx.reactnativeicons.ReactNativeIcons;
 import cn.mandata.react_native_mpchart.MPChartPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import cn.mandata.react_native_android_lib.ManDataLibPackage;
 import cn.mandata.react_native_voise.BaiduVoiseLibPackage;
 import com.smixx.reactnativeicons.ReactNativeIcons;
@@ -49,7 +50,8 @@ public class MainApplication extends Application implements ReactApplication {
                 )),
                 new MPChartPackage(),
                 new ManDataLibPackage(),
-                new BaiduVoiseLibPackage()
+                new BaiduVoiseLibPackage(),
+                new LinearGradientPackage()
         );
     }
   };

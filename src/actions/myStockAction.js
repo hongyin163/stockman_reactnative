@@ -13,7 +13,7 @@ class MyStockActions {
   loadMyStock(callback) {
     var me = this;
     return (dispatch) => {
-      debugger;
+      
       //action.setLoading(true);
       stockLocal.get((error, stocks) => {
         //action.setLoading(false);
@@ -258,14 +258,14 @@ class MyStockActions {
   downLoad(cb) {
     var me = this;
     return (dispatch) => {
-      debugger;
+      
       userLocal.get(function (err, user) {
         if (err) {
           cb && cb(err);
           return;
         }
         dataStock.downLoad(user.id, function (result) {
-          debugger;
+          
           dispatch(result);
           cb && cb(null, result);
         });

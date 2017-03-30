@@ -8,7 +8,7 @@ import {
 	ScrollView,
 	InteractionManager,
 } from 'react-native';
-
+import LinearGradient from 'react-native-linear-gradient';
 var TextButton = require('../control/button');
 var Titlebar = require('../control/titlebar');
 var IconButton = require('../control/button');
@@ -199,13 +199,13 @@ var StockDetail = React.createClass({
 				<Titlebar showBack={true} title={this.props.name + " " + this.props.code.substring(1)}>
 					{this.getActions()}
 				</Titlebar>
-				<View style={{ flex: 1, overflow: 'hidden'}}>
+				<View style={{ flex: 1, overflow: 'hidden' }}>
 					<View style={[styles.price]}>
 						<PriceInfo code={this.state.code} />
 					</View>
 					<View style={[styles.chart]}>
 						<CycleBar ref={(n) => this._cycleBar = n} onSelect={this.onCycleSelect} />
-						<ScrollView ref={(n) => this._scrollView = n}  style={styles.kchart}>
+						<ScrollView ref={(n) => this._scrollView = n} style={styles.kchart}>
 							<CandleChart style={styles.candleChart} data={price} />
 							<TechChartList style={styles.techChartList} techs={this.state.techCodeList} data={price} />
 						</ScrollView>
@@ -217,16 +217,16 @@ var StockDetail = React.createClass({
 	}
 });
 
-	/*<Animated.View style={[styles.price, { top: this.state.priceTop }]}>
-						<PriceInfo code={this.state.code} />
-					</Animated.View>
-					<Animated.View style={[styles.chart, { top: this.state.top }]}>
-						<CycleBar ref={(n) => this._cycleBar = n} onSelect={this.onCycleSelect} />
-						<ScrollView ref={(n) => this._scrollView = n}  style={styles.kchart}>
-							<CandleChart style={styles.candleChart} data={price} />
-							<TechChartList style={styles.techChartList} techs={this.state.techCodeList} data={price} />
-						</ScrollView>
-					</Animated.View>*/
+/*<Animated.View style={[styles.price, { top: this.state.priceTop }]}>
+					<PriceInfo code={this.state.code} />
+				</Animated.View>
+				<Animated.View style={[styles.chart, { top: this.state.top }]}>
+					<CycleBar ref={(n) => this._cycleBar = n} onSelect={this.onCycleSelect} />
+					<ScrollView ref={(n) => this._scrollView = n}  style={styles.kchart}>
+						<CandleChart style={styles.candleChart} data={price} />
+						<TechChartList style={styles.techChartList} techs={this.state.techCodeList} data={price} />
+					</ScrollView>
+				</Animated.View>*/
 
 var styles = StyleSheet.create({
 	container: {
@@ -236,6 +236,7 @@ var styles = StyleSheet.create({
 		shadowColor: 'black',
 		shadowOpacity: 0.2,
 		shadowOffset: { height: 0.5 },
+		elevation: 20
 	},
 	price: {
 		height: 130

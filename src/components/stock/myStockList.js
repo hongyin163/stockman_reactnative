@@ -72,6 +72,7 @@ var scrollView = React.createClass({
     if (store.action == 'remove') {
       return;
     }
+    
     this.setState(function (state) {
       for (var p in store) {
         state[p] = store[p];
@@ -112,6 +113,7 @@ var scrollView = React.createClass({
     this._stockList && this._stockList.setRefreshing(isLoading);
   },
   render: function () {
+    
     var stockRows = [];
     if (this.state.errorMessage) {
       stockRows.push(<View key={"placeholder"} style={{ flex: 1 }}></View>);
@@ -121,7 +123,7 @@ var scrollView = React.createClass({
       stockRows.push(<StockList key={'StockList'} ref={(n) => this._stockList = n} onRefresh={this.reloadData} data={this.state.stockList} />)
     }
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,elevation: 20 }}>
         <ListHeader tech={{ code: 'T0001', name: 'MACD' }} onSort={this.onSortByPercent} onTechSelected={this.onTechSelected} />
         {stockRows}
       </View>

@@ -14,6 +14,7 @@
     "react-native-android-lib": "^1.0.2",
     "react-native-chart-android": "^1.0.8",
     "react-native-icons": "^0.7.1",
+    "react-native-linear-gradient": "^2.0.0",
     "react-native-scrollable-tab-view": "^0.7.2",
     "react-native-voise": "^1.0.2"
   },

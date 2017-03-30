@@ -1,9 +1,11 @@
 var dataUser = require('./dataUser');
+var Base64 = require('../libs/base64');
 
 module.exports = {
 	_token: '',
 
 	get: function (url, successCallback, errorCallback) {
+		debugger;
 		var me = this;
 		me.getToken(function (token) {
 			fetch(url, {
@@ -18,12 +20,19 @@ module.exports = {
 			}).then((responseJson) => {
 				successCallback && successCallback(responseJson);
 			}).catch((error) => {
-				errorCallback && errorCallback(error);
+				// errorCallback && errorCallback(error);
+				throw error;
 			});
 		})
 	},
 	post: function (url, data, successCallback, errorCallback) {
 		var me = this;
+		var body = '';
+		if (typeof data == 'object') {
+			body = JSON.stringify(data);
+		} else {
+			body = data;
+		}
 		me.getToken(function (token) {
 			fetch(url, {
 				method: 'POST',
@@ -33,7 +42,7 @@ module.exports = {
 					'Content-Type': 'application/json',
 					'Authorization': token
 				},
-				body: JSON.stringify(data)
+				body: body
 			}).then((response) => {
 				if (response.status == 200)
 					return response.json();
@@ -42,7 +51,8 @@ module.exports = {
 			}).then((responseJson) => {
 				successCallback && successCallback(responseJson);
 			}).catch((error) => {
-				errorCallback && errorCallback(error.message);
+				throw error;
+				// errorCallback && errorCallback(error.message);
 			});
 		})
 	},
@@ -54,10 +64,10 @@ module.exports = {
 		}
 		dataUser.getLocalInfo(function (err, user) {
 			if (err) {
-				me._token = 'Basic ' + btoa('guest:guest');
+				me._token = 'Basic ' + Base64.encode('guest:guest');
 				callback && callback(me._token);
 			} else {
-				me._token = 'Basic ' + btoa(user.username + ':' + user.password);
+				me._token = 'Basic ' + Base64.encode(user.username + ':' + user.password);
 				callback && callback(me._token);
 			}
 		})

@@ -16,12 +16,14 @@ var {
 var host = ServerConfig.host;
 
 const urls = {
-	GETMYPOSITION: host + 'api/trade/getMyPosition/',
-	GETRECENTTRADES: host + 'api/trade/getRecentTrades/',
+	GETMYPOSITION: host + 'api/trade/GetMyPosition/',
+	GETRECENTTRADES: host + 'api/trade/GetTradeRecord/',
 }
+//
 var obj = {
 	getMyPosition: function (user_id, cb) {
-		util.get(urls.GETMYPOSITION + user_id, function (results) {
+		var url = urls.GETMYPOSITION + user_id;
+		util.get(url, function (results) {
 			cb && cb(results)
 		});
 	},

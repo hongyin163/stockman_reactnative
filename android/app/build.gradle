@@ -142,6 +142,7 @@ dependencies {
     compile project(':react-native-chart-android')
     compile project(':react-native-android-lib')
     compile project(':react-native-voise')
+    compile project(':react-native-linear-gradient')
 }
 
 

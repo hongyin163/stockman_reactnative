@@ -3,13 +3,13 @@ var actions = require('../actions/cloudAction');
 
 class TradeStore {
 	constructor() {
-		this.data = {}
+		this.list = [];
 		this.bindListeners({
 			handleLoadRecentTrade: actions.LOAD_RECENT_TRADE
 		});
 	}
 	handleLoadRecentTrade(data) {
-		this.data = data;
+		this.list = data;
 	}
 }
 module.exports = alt.createStore(TradeStore, 'TradeStore');

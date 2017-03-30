@@ -41,7 +41,7 @@ var Cloud = React.createClass({
 		return ( 
 			<View style={styles.container}>
 			    <Titlebar>
-				    <IconButton  onPress={this.onOpenMenu} icon={"fontawesome|navicon"} color={"WHITE"}/>
+				    <IconButton  onPress={this.onOpenMenu} icon={"fontawesome|navicon"} color={"#ffffff"}/>
 			    </Titlebar>
 				<View style={styles.head}>
 					<View style={styles.percent}>
@@ -95,8 +95,8 @@ var styles = StyleSheet.create({
       	alignItems: 'center'
 	},
 	percentText:{
-		fontSize:80,
-		color:'white'
+		fontSize:60,
+		color:'#ffffff'
 	},
 	money:{
 		flexDirection:'row',
@@ -112,7 +112,7 @@ var styles = StyleSheet.create({
 		color:'white'
 	},
 	tabView:{
-		flex:2
+		flex:3
 	}
 });
 

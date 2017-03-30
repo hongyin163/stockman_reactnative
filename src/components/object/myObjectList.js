@@ -43,7 +43,7 @@ var scrollView = React.createClass({
   componentDidMount: function () {
     myObjectStore.listen(this.onChange);
     var me = this;
-    debugger;
+    
     setTimeout(() => {
       me.setLoading(true);
       myObjectAction.loadMyObjects();

@@ -164,7 +164,8 @@ var Add = React.createClass({
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff'
+		backgroundColor: '#fff',
+		elevation: 20
 	},
 	title: {
 		height: 50,

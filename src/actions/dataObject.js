@@ -141,8 +141,8 @@ module.exports={
       },
 	getState:function (ids,techCode,callback) {
 		var me=this;
-		var url=host+'api/index/GetState/'+ids;
-		util.get(url,function(stateInfo){		
+		var url=host+'api/index/FindState';
+		util.post(url,{id:ids},function(stateInfo){		
 			var state={};
 			stateInfo.map(function (item,i) {
 				state[item.object_code]=item;

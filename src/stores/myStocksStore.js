@@ -58,25 +58,28 @@ class MyStocksStore {
 		var me = this;
 		me.stockList = stocks;
 		// me.isLoading=false;
-		me.action='loadMystock';
+		me.action = 'loadMystock';
 		me.errorMessage = null;
 	}
 	handleDownLoadMyStock(stocks) {
-		me.action='downLoadMyStock';
-		this.stockList = stocks;
-		this.syncToLocal();
+		var me = this;
+		me.action = 'downLoadMyStock';
+		me.stockList = stocks;
+		me.syncToLocal();
 	}
 	handleUpdatePrice(stocks) {
-		me.action='updatePrice';
-		this.stockList = stocks;
+		var me = this;
+		me.action = 'updatePrice';
+		me.stockList = stocks;
 		// this.isLoading=false;
-		this.errorMessage = null;
+		me.errorMessage = null;
 	}
 	handleUpdateState(stocks) {
-		me.action='updateState';
-		this.stockList = stocks;
+		var me = this;
+		me.action = 'updateState';
+		me.stockList = stocks;
 		// this.isLoading=false;
-		this.errorMessage = null;
+		me.errorMessage = null;
 	}
 	handleSetTop(code) {
 		var me = this;
@@ -100,10 +103,11 @@ class MyStocksStore {
 				target.sort = sortList[0].sort + 10;
 			me.stockList = me.sortList(me.stockList, me.sort);
 		}
-		me.action='setTop';
+		me.action = 'setTop';
 		me.syncToLocal();
 	}
 	handleAdd(stock) {
+		var me = this;
 		if (!this.stockList || !this.stockList.map) {
 			this.stockList = [];
 		}
@@ -119,17 +123,21 @@ class MyStocksStore {
 				return;
 			}
 		}
-		me.action='add';
-		this.stockList.push(stock);
-		this.handleSetTop(stock.code);
+		me.action = 'add';
+		me.stockList.push(stock);
+		me.handleSetTop(stock.code);
 	}
 	handleLoadFailed(errorMessage) {
-		this.errorMessage = errorMessage;
-		this.isLoading = false;
+		var me = this;
+		me.action = 'loadFailed';
+		me.errorMessage = errorMessage;
+		me.isLoading = false;
 	}
 	handleSetLoading(isLoading) {
-		this.isLoading = isLoading;
-		this.errorMessage = null;
+		var me = this;
+		me.action = 'setLoading';
+		me.isLoading = isLoading;
+		me.errorMessage = null;
 	}
 	handleRemove(code) {
 		var me = this;
@@ -145,6 +153,7 @@ class MyStocksStore {
 	}
 	handleSetInHand(obj) {
 		var me = this;
+		me.action = 'setInhand';
 
 		var code = obj.code;
 		var inhand = obj.inhand;
@@ -160,12 +169,16 @@ class MyStocksStore {
 		me.syncToLocal();
 	}
 	handleSort(direction) {
-		this.sort = direction;
-		this.stockList = this.sortList(this.stockList, this.sort);
+		var me = this;
+		me.action = 'sort';
+		me.sort = direction;
+		me.stockList = me.sortList(me.stockList, me.sort);
 	}
 	handleSetTech(tech) {
-		this.tech.code = tech.code;
-		this.tech.name = tech.name;
+		var me = this;
+		me.action = 'setTech';
+		me.tech.code = tech.code;
+		me.tech.name = tech.name;
 	}
 	sortList(list, sort) {
 		var top = [];
