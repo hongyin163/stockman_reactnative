@@ -38,28 +38,26 @@ var Login = React.createClass({
     OAuthLogin.setConfig({
       'weixin': [PlatformConfig.wx.api_key, PlatformConfig.wx.secret_key],
       'sina': ['1505531472', '88490537c7f79c0ad074254f6367cd28'],
-      'qq': ['1103536633', 'oZpzpHzkiFjK8nQ6']
+      'qq': [PlatformConfig.qq.api_key, PlatformConfig.qq.secret_key]
     });
     // this._login.login(target);
     OAuthLogin.login(target, function (data) {
 
-      //console.log(data);
-
-      dataUser.saveLocalInfo(data);
       // debugger;
       UserAction.updateInfo(data);
       // debugger;
+      dataUser.saveLocalInfo(data);
+      debugger;
       dataUser.saveSSOAcount(data,
         function (obj) {
 
-          //ToastAndroid.show('登录成功', ToastAndroid.SHORT);         
-          //Nav.back();
+          ToastAndroid.show('登录成功', ToastAndroid.SHORT);
+          Nav.back();
         },
         function (error) {
-          //ToastAndroid.show('登录失败', ToastAndroid.SHORT);    
-          //Nav.back();
+          ToastAndroid.show('登录失败', ToastAndroid.SHORT);
+          Nav.back();
         });
-      Nav.back();
     });
   },
   bindTarget: function (target) {

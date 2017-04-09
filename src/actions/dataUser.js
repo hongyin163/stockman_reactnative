@@ -4,7 +4,7 @@ var React = require('react-native');
 var {
 	userLocal
 } = require('./dataLocal');
-var util = require('./util');
+var Util = require('./util.js');
 
 var {
 	AsyncStorage,
@@ -19,7 +19,7 @@ module.exports = {
 	saveSSOAcount: function(user,success,error) {
 		var url = host + 'api/users/SaveSSOAcount';
 		debugger;
-		util.post(url, {
+		Util.post(url, {
 			id: user.id,
 			name: user.username,
 			password: user.password,
@@ -48,5 +48,4 @@ module.exports = {
 	getLocalInfo:function (callback) {
 		userLocal.get(callback);
 	}
-
 }

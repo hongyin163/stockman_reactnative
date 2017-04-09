@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   Text,
-  Dimensions
+  Dimensions,
+  ToastAndroid
 } from 'react-native';
 
 import TechStore from '../../stores/techStore';
@@ -21,7 +22,7 @@ class tradeStrategy extends Component {
     var me = this;
     me.state = {
       techs: TechStore.getState().techs,
-      strategy: TradeStrategyStore.getState().list
+      strategy: TradeStrategyStore.getState()
     };
     me.onTechStoreChange = function (store) {
       me.setState(function (state) {
@@ -30,7 +31,7 @@ class tradeStrategy extends Component {
     }
     me.onStrategyChange = function (store) {
       me.setState(function (state) {
-        state.strategy = store.list;
+        state.strategy = store.getState();
       });
     }
   }
@@ -45,9 +46,11 @@ class tradeStrategy extends Component {
     var me = this;
     TechStore.listen(me.onTechStoreChange);
     TradeStrategyStore.listen(me.onStrategyChange);
-    setTimeout(() => {
+    var timer = setTimeout(() => {
       me.setLoading(true);
       TechAction.loadTechData();
+      CloudAction.loadTradeStrategy();
+      clearTimeout(timer);
     }, 100);
   }
   componentWillUnmount() {
@@ -65,7 +68,7 @@ class tradeStrategy extends Component {
   }
   getStrategyContent() {
     var me = this;
-    var list = me.state.strategy;
+    var list = me.state.strategy.list;
     var array = list.map((data, i) => {
       return data.name.toUpperCase()
     });
@@ -76,6 +79,12 @@ class tradeStrategy extends Component {
   }
   render() {
     var me = this;
+
+    var msg = me.state.strategy.message;
+    if (msg) {
+      ToastAndroid.show(msg, ToastAndroid.SHORT);
+    }
+
     return (
       <View>
         <View style={styles.strategyList}>

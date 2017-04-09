@@ -12,34 +12,35 @@ class ClcoudActions {
 	loadMyPosition() {
 		var me = this;
 		return (dispatch) => {
-			userLocal.get(function (err, user) {
-				if (err) {
-					dispatch && dispatch(err);
-					return;
-				}
-				DataCloud.getMyPosition(user.id, function (results) {
-					dispatch(results);
-				})
-			});
+			DataCloud.getMyPosition(user.id, function (results) {
+				dispatch(results);
+			})
 		}
 
 	}
 	loadRecentTrade() {
 		var me = this;
 		return (dispatch) => {
-			userLocal.get(function (err, user) {
-				if (err) {
-					dispatch && dispatch(err);
-					return;
-				}
-				DataCloud.getRecentTrades(user.id, function (results) {
-					debugger;
-					dispatch(results);
-				})
+			DataCloud.getRecentTrades(user.id, function (results) {
+				dispatch(results);
 			});
 		}
 	}
 	loadTradeStrategy() {
+		var me = this;
+		return (dispatch) => {
+			DataCloud.getTradeStrategy(function (results) {
+				dispatch(results);
+			});
+		}
+	}
+	saveTradeStrategy(strategy) {
+		var me = this;
+		return (dispatch) => {
+			DataCloud.saveTradeStrategy(strategy,function (results) {
+				dispatch(results);
+			});
+		}
 	}
 	addStrategy(item) {
 		return (dispatch) => {

@@ -25,7 +25,8 @@ var PlatformConfig = {
 		secret_key:'95ee719075fceee12615f4d85d59dfd5'
 	},
 	qq:{
-		
+		api_key:'1103536633',
+		secret_key:'oZpzpHzkiFjK8nQ6'
 	}
 }
 var ServerConfig={

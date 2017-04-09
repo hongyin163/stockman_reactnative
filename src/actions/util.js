@@ -1,9 +1,10 @@
-var dataUser = require('./dataUser');
+var {
+	userLocal
+} = require('./dataLocal');
 var Base64 = require('../libs/base64');
 
 module.exports = {
 	_token: '',
-
 	get: function (url, successCallback, errorCallback) {
 		debugger;
 		var me = this;
@@ -61,13 +62,14 @@ module.exports = {
 		if (me._token) {
 			callback && callback(me._token);
 			return;
-		}
-		dataUser.getLocalInfo(function (err, user) {
+		};
+		userLocal.get(function (err, user) {
+			debugger;
 			if (err) {
 				me._token = 'Basic ' + Base64.encode('guest:guest');
 				callback && callback(me._token);
 			} else {
-				me._token = 'Basic ' + Base64.encode(user.username + ':' + user.password);
+				me._token = 'Basic ' + Base64.encode(user.id + ':' + user.password);
 				callback && callback(me._token);
 			}
 		})

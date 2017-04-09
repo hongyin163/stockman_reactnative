@@ -86,7 +86,7 @@ var TechChartList = React.createClass({
   loadData: function (code) {
     var me = this;
     var state = this.state;
-
+    debugger;
     if (state.loadState == 0) {
       me.setState(function (state) {
         state.loadState = 1;
