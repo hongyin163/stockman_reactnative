@@ -62,5 +62,6 @@ module.exports={
 	objectLocal:new LocalListStore('my_objects'),
 	userLocal:new LocalListStore('user_profile'),	
 	filterConfig:new LocalListStore('user_filterconfig'),
-	techLocal:new LocalListStore('user_techs')
+	techLocal:new LocalListStore('user_techs'),
+	strategyLocal:new LocalListStore('user_strategy'),
 };

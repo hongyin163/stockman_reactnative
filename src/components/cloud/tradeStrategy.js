@@ -15,6 +15,7 @@ import TradeStrategyStore from '../../stores/tradeStrategyStore';
 import TechAction from '../../actions/techAction';
 import CloudAction from '../../actions/cloudAction';
 import StrategyItem from './tradeStrategyItem'
+import Button from '../control/button';
 
 class tradeStrategy extends Component {
   constructor(props) {
@@ -22,24 +23,26 @@ class tradeStrategy extends Component {
     var me = this;
     me.state = {
       techs: TechStore.getState().techs,
+      techMap: TechStore.getState().techMap,
       strategy: TradeStrategyStore.getState()
     };
     me.onTechStoreChange = function (store) {
       me.setState(function (state) {
         state.techs = store.techs;
+        state.techMap = store.techMap;
       });
     }
     me.onStrategyChange = function (store) {
       me.setState(function (state) {
-        state.strategy = store.getState();
+        state.strategy = store;
       });
     }
   }
   onSelect(data) {
     if (data.selected) {
-      CloudAction.addStrategy(data);
+      CloudAction.addStrategy(data.code);
     } else {
-      CloudAction.removeStrategy(data.name);
+      CloudAction.removeStrategy(data.code);
     }
   }
   componentDidMount() {
@@ -60,7 +63,15 @@ class tradeStrategy extends Component {
   getStrategyList() {
     var me = this;
     var list = me.state.techs;
+    var strategy = me.state.strategy.list;
+
+    var map = {};
+    strategy.map(function (item) {
+      map[item] = true;
+    });
+
     return list.map((data, i) => {
+      data.selected = map[data.code] ? true : false;
       return <StrategyItem key={'strategy_' + i}
         data={data}
         index={i} onSelect={me.onSelect} />
@@ -69,13 +80,26 @@ class tradeStrategy extends Component {
   getStrategyContent() {
     var me = this;
     var list = me.state.strategy.list;
-    var array = list.map((data, i) => {
-      return data.name.toUpperCase()
-    });
+    var map = me.state.techMap;
+    var array = [];
+    if (list.size > 0) {
+      array = list.map((data, i) => {
+        return map[data].toUpperCase()
+      });
+    }
     return <Text style={styles.expression}> {array.join(' + ')}</Text>;
   }
   setLoading() {
 
+  }
+  onSave() {
+    var me = this;
+    var list = me.state.strategy.list.toJS();
+    debugger;
+    CloudAction.saveTradeStrategy(list);
+  }
+  onCancel() {
+    CloudAction.cancelChangeStrategy();
   }
   render() {
     var me = this;
@@ -85,20 +109,35 @@ class tradeStrategy extends Component {
       ToastAndroid.show(msg, ToastAndroid.SHORT);
     }
 
+    var btns = [];
+    var strategy = me.state.strategy;
+    if ((strategy.origin.join(',') != strategy.list.join(','))) {
+      btns.push(
+        <View key={"btns"} style={[styles.btns]}>
+          <Button text={"保存"} color={"#fff"} style={[styles.btn, styles.save]} onPress={me.onSave.bind(me)} />
+          <Button text={"取消"} color={"#a5a5a5"} style={[styles.btn, styles.calcel]} onPress={me.onCancel.bind(me)} />
+        </View>
+      )
+    }
+
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.strategyList}>
           {me.getStrategyContent()}
         </View>
         <View style={styles.itemContainer}>
           {me.getStrategyList()}
         </View>
+        {btns}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   itemContainer: {
     flex: 1, flexDirection: 'row', flexWrap: 'wrap', padding: 2
   },
@@ -112,6 +151,24 @@ const styles = StyleSheet.create({
   expression: {
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  btns: {
+    height: 60,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btn: {
+    height: 45,
+    width: 90,
+    margin: 5,
+    borderRadius: 5
+  },
+  save: {
+    backgroundColor: "#c00",
+  },
+  calcel: {
+    backgroundColor: "#e5e5e5",
   }
 });
 

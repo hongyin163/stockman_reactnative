@@ -132,8 +132,7 @@ module.exports={
 	},
       getCurrentData:function (cate,code,callback) {
             // var url=host+'api/Object/GetKData/'+code+'/'+cycle+'/'+cate;
-            var url = host + 'api/object/GetCurrentData/'+cate+'/'+code;
-            
+            var url = host + 'api/object/GetCurrentData/'+cate+'/'+code;            
             util.get(url,function (infos) {           
                  
                   callback&&callback(infos);

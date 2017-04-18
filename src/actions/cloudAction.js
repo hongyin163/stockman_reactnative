@@ -12,7 +12,16 @@ class ClcoudActions {
 	loadMyPosition() {
 		var me = this;
 		return (dispatch) => {
-			DataCloud.getMyPosition(user.id, function (results) {
+			DataCloud.getMyPosition(function (results) {
+				dispatch(results);
+			})
+		}
+
+	}
+	loadMyAmount() {
+		var me = this;
+		return (dispatch) => {
+			DataCloud.getMyAmount(function (results) {
 				dispatch(results);
 			})
 		}
@@ -21,7 +30,7 @@ class ClcoudActions {
 	loadRecentTrade() {
 		var me = this;
 		return (dispatch) => {
-			DataCloud.getRecentTrades(user.id, function (results) {
+			DataCloud.getRecentTrades(function (results) {
 				dispatch(results);
 			});
 		}
@@ -37,7 +46,7 @@ class ClcoudActions {
 	saveTradeStrategy(strategy) {
 		var me = this;
 		return (dispatch) => {
-			DataCloud.saveTradeStrategy(strategy,function (results) {
+			DataCloud.saveTradeStrategy(strategy, function (results) {
 				dispatch(results);
 			});
 		}
@@ -45,6 +54,11 @@ class ClcoudActions {
 	addStrategy(item) {
 		return (dispatch) => {
 			dispatch(item);
+		}
+	}
+	cancelChangeStrategy() {
+		return (dispatch) => {
+			dispatch();
 		}
 	}
 	removeStrategy(name) {

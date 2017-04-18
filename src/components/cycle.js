@@ -20,6 +20,7 @@ var Nav=require('./nav');
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 var {ColorConfig}=require('../config');
 var ViewPagerBar=require('./control/viewPageBar')
+import Loading from './control/loading';
 
 var Main = React.createClass({
   getInitialState: function() {
@@ -59,7 +60,7 @@ var Main = React.createClass({
     if(this.props.visible){
       childs.push(<MyObjectList key={'cycle_myobjectlist'}/>);
     }else{
-      childs.push(<View key={'cycle_loading'} style={{flex:1,justifyContent:'center',alignItems:'center'}}></View>);
+      childs.push(<Loading key="cycle_loading" />);
     }
 
     return (

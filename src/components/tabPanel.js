@@ -111,7 +111,7 @@ var TabPanel = React.createClass({
 		}
 	},
 	render: function () {
-		var grayColor = '#d0d0d0', focusColor = '#cc0000';
+		var grayColor = '#d0d0d0', focusColor = '#c00';
 		return (
 			<View style={styles.container}>
 				<View style={styles.tabContent}>
@@ -129,19 +129,19 @@ var TabPanel = React.createClass({
 					</View>
 				</View>
 				<View style={styles.tabBar}>
-					<TabButton ref={'tab_mystocks'} icon='fontawesome|home' style={styles.tabButton}
-						color={focusColor}
+					<TabButton key={'tab_mystocks'} ref={'tab_mystocks'} icon='fontawesome|home' style={styles.tabButton}
+						color={'#c00'}
 						text="首页"
 						onPress={this.onTabSelect('mystocks')} />
-					<TabButton ref={'tab_cycle'} icon='fontawesome|clock-o' style={styles.tabButton}
+					<TabButton key={'tab_cycle'} ref={'tab_cycle'} icon='fontawesome|clock-o' style={styles.tabButton}
 						color={grayColor}
 						text="周期"
 						onPress={this.onTabSelect('cycle')} />
-					<TabButton ref={'tab_discovery'} icon='fontawesome|eye' style={styles.tabButton}
+					<TabButton key={'tab_discovery'} ref={'tab_discovery'} icon='fontawesome|eye' style={styles.tabButton}
 						color={grayColor}
 						text="发现"
 						onPress={this.onTabSelect('discovery')} />
-					<TabButton ref={'tab_cloud'} icon='fontawesome|cloud' style={styles.tabButton}
+					<TabButton key={'tab_cloud'}  ref={'tab_cloud'} icon='fontawesome|cloud' style={styles.tabButton}
 						color={grayColor}
 						text="我的云控"
 						onPress={this.onTabSelect('cloud')} />

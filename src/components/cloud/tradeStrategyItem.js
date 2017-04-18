@@ -12,7 +12,6 @@ var { ColorConfig } = require('../../config');
 var SCREEN_WIDTH = Dimensions.get('window').width;
 var SCREEN_HEIGHT = Dimensions.get('window').height;
 
-
 var Item = React.createClass({
   getInitialState: function (argument) {
     return {
@@ -23,9 +22,9 @@ var Item = React.createClass({
     var me = this;
     me.setState(function (state) {
       state.data.selected = !state.data.selected;
-    },function(){
+    }, function () {
       me.props.onSelect && me.props.onSelect(me.state.data);
-    });    
+    });
     // filterAction.select(this.props.name, this.props.index, this.props.multiselect);
   },
   render: function () {

@@ -51,8 +51,7 @@ var styles = StyleSheet.create({
   },
   tabIcon:{
     width:30,
-    height:30,
-    color:'#d0d0d0'
+    height:30
   }
 });
 module.exports=button;
