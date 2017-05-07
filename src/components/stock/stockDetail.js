@@ -178,9 +178,9 @@ var StockDetail = React.createClass({
 			return actions;
 
 		if (this.state.isMyStock == false) {
-			actions.push(<IconButton key={'add'} onPress={this.onAdd} icon={"fontawesome|plus"} color={"WHITE"} />)
+			actions.push(<IconButton key={'add'} onPress={this.onAdd} icon={"fontawesome|plus"} color={"#ffffff"} />)
 		} else {
-			actions.push(<IconButton key={'remove'} onPress={this.onRemvoe} icon={"fontawesome|minus"} color={"WHITE"} />)
+			actions.push(<IconButton key={'remove'} onPress={this.onRemvoe} icon={"fontawesome|minus"} color={"#ffffff"} />)
 		}
 		return actions;
 	},

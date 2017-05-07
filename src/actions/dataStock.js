@@ -1,17 +1,20 @@
 'use strict';
 
-var React = require('react-native');
+import React from 'react';
+import {
+      AsyncStorage
+} from 'react-native';
+
 var _ = require('lodash');
+
 var {
       stockLocal,
       objectLocal,
       filterConfig,
       userLocal
 } = require('./dataLocal');
+
 var util = require('./util');
-var {
-      AsyncStorage,
-} = React;
 
 // { name: 'date', type: 'string' },//0
 // { name: 'code', type: 'string' },//0
@@ -46,10 +49,10 @@ var {
 var host = ServerConfig.host;
 
 module.exports = {
-      getStockInfo: function(ids, callback) {
+      getStockInfo: function (ids, callback) {
             // //body...
             var url = host + 'api/stock/GetStocks/' + ids
-            util.get(url, function(stocks) {
+            util.get(url, function (stocks) {
                   if (stocks.length > 0)
                         callback && callback(stocks[0]);
                   else
@@ -58,12 +61,12 @@ module.exports = {
             //callback&&callback(detail[0]);
       },
       //获取最近价格
-      getPrice: function(ids, callback) {
+      getPrice: function (ids, callback) {
             var me = this;
             var url = host + 'api/stock/GetPrice/' + ids;
-            util.get(url, function(infos) {
+            util.get(url, function (infos) {
                   var state = {};
-                  infos.map(function(item, i) {
+                  infos.map(function (item, i) {
                         state[item.code] = item;
                   });
                   callback && callback(state);
@@ -78,12 +81,12 @@ module.exports = {
             // callback&&callback(state);
 
       },
-      getState: function(ids, techCode, callback) {
+      getState: function (ids, techCode, callback) {
             var me = this;
             var url = host + 'api/index/FindState';
-            util.post(url,{id:ids}, function(stateInfo) {
+            util.post(url, { id: ids }, function (stateInfo) {
                   var state = {};
-                  stateInfo.map(function(item, i) {
+                  stateInfo.map(function (item, i) {
                         state[item.object_code] = item;
                   });
                   callback && callback(state);
@@ -95,9 +98,9 @@ module.exports = {
             // });
             // callback&&callback(state);
       },
-      getKData: function(code, cycle, cate, callback) {
+      getKData: function (code, cycle, cate, callback) {
             var url = host + 'api/Object/GetKData/' + code + '/' + cycle + '/' + cate;
-            util.get(url, function(infos) {
+            util.get(url, function (infos) {
                   callback && callback(infos);
             });
             // var obj={
@@ -107,9 +110,9 @@ module.exports = {
             // }
             // callback&&callback(obj[cycle]);
       },
-      getKDataAllCycle: function(code, cate, callback) {
+      getKDataAllCycle: function (code, cate, callback) {
             var url = host + 'api/Object/GetKDataAllCycle/' + code + '/' + cate;
-            util.get(url, function(infos) {
+            util.get(url, function (infos) {
                   callback && callback(infos);
             });
 
@@ -121,7 +124,7 @@ module.exports = {
             // }
             // callback&&callback(obj);
       },
-      findStockRankBy: function(cate, techIds, callback) {
+      findStockRankBy: function (cate, techIds, callback) {
             var me = this;
             var url = host + 'api/stock/FindStockRankBy';
             var def = {
@@ -129,14 +132,14 @@ module.exports = {
                   "cate": '0000001,1399001,1399006',
                   // "tech": 'T0001'
             };
-            me.getFilterConf(def, function(data) {
+            me.getFilterConf(def, function (data) {
                   if (cate && cate.length > 0) {
                         data.cate = cate;
                   }
                   if (techIds && techIds.length > 0) {
                         data.tech = techIds;
                   }
-                  util.post(url, data, function(infos) {
+                  util.post(url, data, function (infos) {
                         callback && callback(infos);
                   });
 
@@ -144,7 +147,7 @@ module.exports = {
 
             //callback&&callback(FindStockRankBy);
       },
-      getRecoCateCount: function(cates, callback) {
+      getRecoCateCount: function (cates, callback) {
             var me = this;
 
             var url = host + 'api/stock/GetRecoCateCount';
@@ -155,8 +158,8 @@ module.exports = {
             };
 
 
-            me.getFilterConf(def, function(data) {
-                  util.post(url, data, function(infos) {
+            me.getFilterConf(def, function (data) {
+                  util.post(url, data, function (infos) {
                         callback && callback(infos);
                   });
 
@@ -165,7 +168,7 @@ module.exports = {
             // var d=[{"cate_code":"0000001","count":5},{"cate_code":"0000016","count":3},{"cate_code":"011300","count":5},{"cate_code":"011700","count":5},{"cate_code":"012000","count":5},{"cate_code":"012400","count":5},{"cate_code":"1399001","count":5},{"cate_code":"1399004","count":5},{"cate_code":"1399005","count":5},{"cate_code":"1399006","count":5},{"cate_code":"1399300","count":5}];
             // callback&&callback(d);
       },
-      findCrossStock: function(cycle, callback) {
+      findCrossStock: function (cycle, callback) {
 
             var me = this;
             var url = host + 'api/stock/FindCrossStock';
@@ -175,17 +178,16 @@ module.exports = {
                   "tech": 'T0001'
             };
 
-            me.getFilterConf(def, function(data) {
-                  util.post(url, data, function(infos) {
+            me.getFilterConf(def, function (data) {
+                  util.post(url, data, function (infos) {
                         callback && callback(infos);
                   });
-
             });
 
             // var d=[{"tag":"MACD金叉","cycle":"day","code":"0600057","name":"象屿股份","price":13.85,"yestclose":14.15,"cate":"通信","tech":"T0001","day":1,"week":1,"month":1,"last_day":1,"last_week":1,"last_month":1},{"tag":"KDJ金叉","cycle":"day","code":"0600057","name":"象屿股份","price":13.85,"yestclose":14.15,"cate":"通信","tech":"T0002","day":1,"week":1,"month":1,"last_day":1,"last_week":1,"last_month":1}];
             // callback&&callback(d);
       },
-      findStateStock: function(cycle, callback) {
+      findStateStock: function (cycle, callback) {
             var me = this;
             var url = host + 'api/stock/FindStateStock';
             var def = {
@@ -195,8 +197,9 @@ module.exports = {
                   "tech": "T0001,T0002"
             };
 
-            me.getFilterConf(def, function(data) {
-                  util.post(url, data, function(infos) {
+            me.getFilterConf(def, function (data) {
+                  util.post(url, data, function (infos) {
+                        debugger;
                         callback && callback(infos);
                   });
 
@@ -204,7 +207,7 @@ module.exports = {
             // var d=[{"tag":"macd","cycle":"day","code":"0600137","name":"浪莎股份","price":39.43,"yestclose":39.34,"cate":"服装","tech":"T0001","day":1,"week":-1,"month":1,"last_day":-1,"last_week":-1,"last_month":1},{"tag":"kdj","cycle":"day","code":"0600137","name":"浪莎股份","price":39.43,"yestclose":39.34,"cate":"服装","tech":"T0002","day":1,"week":-1,"month":1,"last_day":-1,"last_week":-1,"last_month":-1},{"tag":"kdj","cycle":"day","code":"0600146","name":"商赢环球","price":33.31,"yestclose":33.25,"cate":"服装","tech":"T0002","day":1,"week":1,"month":1,"last_day":-1,"last_week":1,"last_month":1},{"tag":"kdj","cycle":"day","code":"0600400","name":"红豆股份","price":21.63,"yestclose":21.87,"cate":"服装","tech":"T0002","day":1,"week":1,"month":1,"last_day":-1,"last_week":1,"last_month":-1},{"tag":"kdj","cycle":"day","code":"0601566","name":"九牧王","price":21.06,"yestclose":20.72,"cate":"服装","tech":"T0002","day":1,"week":1,"month":1,"last_day":-1,"last_week":1,"last_month":0}];
             // callback&&callback(d);
       },
-      getFilterConf: function(option, cb) {
+      getFilterConf: function (option, cb) {
             var def = {
                   "user_id": "guset",
                   "cate": '0000001,1399001,1399006',
@@ -212,7 +215,7 @@ module.exports = {
             };
             var data = _.assign(def, option);
 
-            objectLocal.get(function(err, objs) {
+            objectLocal.get(function (err, objs) {
                   var cates = [];
                   if (_.isArray(objs)) {
                         objs.forEach((p) => {
@@ -225,7 +228,7 @@ module.exports = {
                         }
 
                   }
-                  filterConfig.get(function(err, conf) {
+                  filterConfig.get(function (err, conf) {
                         if (_.isObject(conf)) {
                               data = _.assign(data, conf);
                         }
@@ -233,14 +236,14 @@ module.exports = {
                   });
             });
       },
-      downLoad: function(user_id, callback) {
+      downLoad: function (user_id, callback) {
             var me = this;
             //从服务器加载数据到本地
             var url = host + 'api/stock/GetMyStocks/' + user_id;
-            util.get(url, function(syncStock) {
+            util.get(url, function (syncStock) {
 
                   var mystock = [];
-                  syncStock.stocks.map(function(item, i) {
+                  syncStock.stocks.map(function (item, i) {
                         mystock.push({
                               code: item.code,
                               name: item.name,
@@ -259,7 +262,7 @@ module.exports = {
                               last_month: 0
                         })
                   });
-                  var sorts = mystock.sort(function(a, b) {
+                  var sorts = mystock.sort(function (a, b) {
                         return b.sort - a.sort;
                   });
                   // debugger;
@@ -288,21 +291,21 @@ module.exports = {
 
             // });
       },
-      upLoad: function(callback) {
+      upLoad: function (callback) {
             var me = this;
             //上传本地数据到服务器
-            
-            userLocal.get(function(err, user) {
+
+            userLocal.get(function (err, user) {
                   if (err) {
                         callback && callback(err);
                         return;
                   }
 
-                  stockLocal.get(function(error, stocks) {
-                        
+                  stockLocal.get(function (error, stocks) {
+
                         if (error) return callback && callback(error);
 
-                        var stockList = stocks.map(function(stock, i) {
+                        var stockList = stocks.map(function (stock, i) {
                               return {
                                     code: stock.code,
                                     inhand: stock.inhand,
@@ -313,7 +316,7 @@ module.exports = {
                         util.post(url, {
                               user_id: user.id,
                               stocks: stockList
-                        }, function(info) {
+                        }, function (info) {
                               if (info && info.success) {
                                     callback && callback(null, true);
                               } else {
@@ -325,7 +328,7 @@ module.exports = {
             });
 
       },
-      search: function(v, callback) {
+      search: function (v, callback) {
             if (v == '' || v.length <= 2) {
                   callback && callback([]);
                   return false;
@@ -333,7 +336,7 @@ module.exports = {
             var me = this;
 
             function search_callback(list) {
-                  stockLocal.get(function(mystocks) {
+                  stockLocal.get(function (mystocks) {
                         var obj = {};
                         for (var i = 0; i < mystocks.length; i++) {
                               obj[mystocks[i].code] = true;

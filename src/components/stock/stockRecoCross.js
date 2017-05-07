@@ -34,24 +34,14 @@ var scrollView = React.createClass({
   getInitialState: function () {
     return myStockStore.getState();
   },
+  cycle: 'day',
   componentDidMount: function () {
     myStockStore.listen(this.onChange);
     var me = this;
     InteractionManager.runAfterInteractions(() => {
       me.setLoading(true);
       myStockAction.loadRecoCrossStock('day');
-      me.setLoading(false);
     });
-    // setTimeout(()=>{     
-
-    //     // setTimeout(()=>{
-    //     //     myStockAction.updatePrice(me.state);
-    //     //       setTimeout(()=>{
-    //     //           myStockAction.updateState(me.state,me.state.tech.code);
-    //     //           me.setLoading(false);
-    //     //       },500);          
-    //     // },500);
-    // },1000);    
   },
   componentWillUnmount: function () {
     myStockStore.unlisten(this.onChange);
@@ -100,20 +90,19 @@ var scrollView = React.createClass({
   reloadData: function () {
     var me = this;
     me.setLoading(true);
-    setTimeout(() => {
+    me.setTimeout(() => {
       myStockAction.updatePrice(me.state);
-      me.setLoading(false);
+      // me.setLoading(false);
     }, 500);
   },
   setLoading: function (isLoading) {
-    this._stockList && this._stockList.setRefreshing(isLoading);
+    myStockAction.setLoading(isLoading);
   },
   onCycleSelect: function (code, name) {
     var me = this;
+    me.cycle = code;
     me.setLoading(true);
-    myStockAction.loadRecoCrossStock(code, () => {
-      me.setLoading(false);
-    });
+    myStockAction.loadRecoCrossStock(code);
   },
   getDataSrouce: function (argument) {
     var getSectionData = (dataBlob, sectionID) => {
@@ -159,13 +148,15 @@ var scrollView = React.createClass({
       stockRows.push(<View key={"placeholder"} style={{ flex: 1 }}></View>);
 
     } else {
-      if (this.state.isLoad && this.state.list.length == 0) {
+      if (this.state.isLoading == false && this.state.list.length == 0) {
         ToastAndroid.show('无推荐', ToastAndroid.SHORT);
         stockRows.push(<View key={"placeholder"} style={{ flex: 1 }}></View>);
       } else {
         stockRows.push(<RefreshListView
+          key={'stock_cross_' + this.cycle}
           style={styles.container}
           ref={(control) => this._stockList = control}
+          refreshing={this.state.isLoading || false}
           onRefresh={this.reloadData}
           pageSize={10}
           dataSource={this.getDataSrouce()}

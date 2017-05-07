@@ -53,12 +53,12 @@ var scrollView = React.createClass({
   },
   loadData: function (argument) {
     var me = this;
-    setTimeout(() => {
+    me.setTimeout(() => {
       me.setLoading(true);
       myStockAction.loadMyStock();
-      setTimeout(() => {
+      me.setTimeout(() => {
         myStockAction.updatePrice(me.state);
-        setTimeout(() => {
+        me.setTimeout(() => {
           myStockAction.updateState(me.state, me.state.tech.code);
           me.setLoading(false);
         }, 500);
@@ -72,7 +72,7 @@ var scrollView = React.createClass({
     if (store.action == 'remove') {
       return;
     }
-    
+
     this.setState(function (state) {
       for (var p in store) {
         state[p] = store[p];
@@ -82,9 +82,9 @@ var scrollView = React.createClass({
   reloadData: function () {
     var me = this;
     me.setLoading(true);
-    setTimeout(() => {
+    me.setTimeout(() => {
       myStockAction.updatePrice(me.state);
-      setTimeout(() => {
+      me.setTimeout(() => {
         myStockAction.updateState(me.state, me.state.tech.code);
         me.setLoading(false);
       }, 500);
@@ -110,21 +110,27 @@ var scrollView = React.createClass({
     }, 100);
   },
   setLoading: function (isLoading) {
-    this._stockList && this._stockList.setRefreshing(isLoading);
+    myStockAction.setLoading(isLoading);
   },
   render: function () {
-    
+
     var stockRows = [];
     if (this.state.errorMessage) {
       stockRows.push(<View key={"placeholder"} style={{ flex: 1 }}></View>);
       ToastAndroid.show(this.state.errorMessage + "", ToastAndroid.LONG);
     }
     else {
-      stockRows.push(<StockList key={'StockList'} ref={(n) => this._stockList = n} onRefresh={this.reloadData} data={this.state.stockList} />)
+      stockRows.push(<StockList key={'StockList'}
+        ref={(n) => this._stockList = n}
+        onRefresh={this.reloadData}
+        refreshing={this.state.isLoading}
+        data={this.state.stockList} />)
     }
     return (
-      <View style={{ flex: 1,elevation: 20 }}>
-        <ListHeader tech={{ code: 'T0001', name: 'MACD' }} onSort={this.onSortByPercent} onTechSelected={this.onTechSelected} />
+      <View style={{ flex: 1, elevation: 20 }}>
+        <ListHeader tech={{ code: 'T0001', name: 'MACD' }}
+          onSort={this.onSortByPercent}
+          onTechSelected={this.onTechSelected} />
         {stockRows}
       </View>
     );

@@ -23,7 +23,7 @@ class MyObjectStore {
 			handleUpdatePrice: actions.UPDATE_PRICE,
 			handleSetTop: actions.SET_TOP,
 			//handleLoadFailed:actions.LOAD_FAILED,
-			//handleSetLoading:actions.SET_LOADING,
+			handleSetLoading:actions.SET_LOADING,
 			handleSort: actions.SORT,
 			//handleSetTech:actions.SET_TECH
 			handleLoadRecoCateCount: actions.LOAD_RECO_CATE_COUNT

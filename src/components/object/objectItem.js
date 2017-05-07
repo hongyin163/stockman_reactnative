@@ -371,7 +371,7 @@ var Stock = React.createClass({
             onPress={this.onSelect}>
             <View style={styles.info}>
               <View style={styles.name}>
-                <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{stock.name}{stock.sort}</Text>
+                <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{stock.name}</Text>
                 <Text style={{ fontSize: 11 }}>{stock.code}</Text>
               </View>
               <View style={styles.price}>

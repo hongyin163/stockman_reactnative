@@ -141,7 +141,7 @@ class RecoActions {
 		return (dispatch) => dispatch(errorMessage);
 	}
 	setLoading(isLoading) {
-		return function(dispatch){
+		return function (dispatch) {
 			dispatch(isLoading);
 		}
 	}

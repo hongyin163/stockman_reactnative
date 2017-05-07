@@ -3,10 +3,11 @@ var {
 } = require('./dataLocal');
 var Base64 = require('../libs/base64');
 
+import Toast from '../components/control/toast';
+
 module.exports = {
 	_token: '',
 	get: function (url, successCallback, errorCallback) {
-		debugger;
 		var me = this;
 		me.getToken(function (token) {
 			fetch(url, {
@@ -21,8 +22,8 @@ module.exports = {
 			}).then((responseJson) => {
 				successCallback && successCallback(responseJson);
 			}).catch((error) => {
-				// errorCallback && errorCallback(error);
-				throw error;
+				errorCallback && errorCallback(error);
+				Toast.show(error.message);
 			});
 		})
 	},
@@ -52,8 +53,8 @@ module.exports = {
 			}).then((responseJson) => {
 				successCallback && successCallback(responseJson);
 			}).catch((error) => {
-				throw error;
-				// errorCallback && errorCallback(error.message);
+				errorCallback && errorCallback(error.message);
+				Toast.show(error.message);
 			});
 		})
 	},

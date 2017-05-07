@@ -6,7 +6,7 @@ import {
 	RefreshControl
 } from 'react-native';
 
-var {ColorConfig} = require('../../config');
+var { ColorConfig } = require('../../config');
 
 var PullToRefresh = React.createClass({
 	setRefreshing: function (isLoading) {
@@ -14,9 +14,9 @@ var PullToRefresh = React.createClass({
 	},
 	render: function () {
 		return (
-			<RefreshControl				
+			<RefreshControl
 				ref={(control) => this._refresh = control}
-				refreshing={false}
+				refreshing={this.props.refreshing||false}
 				style={this.props.style}
 				colors={[ColorConfig.baseColor]}
 				progressBackgroundColor={'#ffffff'}

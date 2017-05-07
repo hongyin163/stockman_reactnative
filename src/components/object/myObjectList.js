@@ -25,7 +25,7 @@ var {
 var { Icon, } = require('react-native-icons');
 var DataAdapter = require('../chart/techDataAdapter');
 var TimerMixin = require('react-timer-mixin');
-var {ColorConfig} = require('../../config');
+var { ColorConfig } = require('../../config');
 var PullToRefreshView = require('../control/pullToRefresh');
 
 var SCREEN_WIDTH = Dimensions.get('window').width;
@@ -43,21 +43,21 @@ var scrollView = React.createClass({
   componentDidMount: function () {
     myObjectStore.listen(this.onChange);
     var me = this;
-    
+
     setTimeout(() => {
       me.setLoading(true);
       myObjectAction.loadMyObjects();
-      setTimeout(()=>{
-          myObjectAction.updatePrice(me.state);
-            setTimeout(()=>{
-                myObjectAction.updateState(me.state,me.state.tech.code);
-                setTimeout(()=>{
-                    myObjectAction.loadRecoCateCount(me.state);
-                    me.setLoading(false);
+      setTimeout(() => {
+        myObjectAction.updatePrice(me.state);
+        setTimeout(() => {
+          myObjectAction.updateState(me.state, me.state.tech.code);
+          setTimeout(() => {
+            myObjectAction.loadRecoCateCount(me.state);
+            me.setLoading(false);
 
-                },500);     
-            },500);          
-      },500);
+          }, 500);
+        }, 500);
+      }, 500);
     }, 100);
   },
   componentWillUnmount: function () {
@@ -97,7 +97,8 @@ var scrollView = React.createClass({
     // this._refresh.getInnerViewNode().setNativeProps({
     //   refreshing:isLoading
     // });
-    this._refresh && this._refresh.setRefreshing(isLoading);
+    // this._refresh && this._refresh.setRefreshing(isLoading);
+    myObjectAction.setLoading(isLoading);
   },
   render: function () {
     var stockRows = [];
@@ -114,14 +115,16 @@ var scrollView = React.createClass({
     return (
       <View style={{ flex: 1 }}>
         <ListHeader tech={{ code: 'T0001', name: 'MACD' }} onSort={this.onSortByPercent} onTechSelected={this.onTechSelected} />
-        <PullToRefreshView
-          style={styles.scrollView}
-          ref={(control) => this._refresh = control}
-          onRefresh={this.reloadData}>
-          <ScrollView style={{ flex: 1 }}>
-            {stockRows}
-          </ScrollView>
-        </PullToRefreshView>
+        <ScrollView
+          style={{ flex: 1 }}
+          refreshControl={
+            <PullToRefreshView
+              refreshing={this.state.isLoading || false}
+              ref={(control) => this._refresh = control}
+              onRefresh={this.reloadData} />
+          }>
+          {stockRows}
+        </ScrollView>
       </View>
 
     );

@@ -38,6 +38,9 @@ class myPositionList extends Component {
 	}
 	getRows() {
 		var me = this;
+		if(me.state.loadState===0){
+			return <View/>
+		}
 		var list = me.state.list;
 		var rows = [];
 		if (list.size > 0) {
@@ -58,33 +61,32 @@ class myPositionList extends Component {
 	}
 	render() {
 		var me = this;
-		if (me.state.loadState == 0) {
-			return (
-				<View key={'pos_load_warper'} style={styles.msg}>
-					<Loading key={'pos_loading'} />
-				</View>
-			);
-		}
 		return (
 			<View style={styles.container}>
-				<PullToRefreshView
-					style={styles.container}
-					ref={(control) => this._refresh = control}
-					onRefresh={this.onRefresh.bind(me)}>
-					<View style={styles.header}>
-						<Text style={styles.title}>证券/市值</Text>
-						<Text style={styles.title}>持仓</Text>
-						<Text style={styles.title}>市价/成本价</Text>
-						<Text style={styles.title}>盈亏/盈亏比</Text>
-					</View>
-					<ScrollView >
-						{me.getRows()}
-					</ScrollView>
-				</PullToRefreshView>
+				<View style={styles.header}>
+					<Text style={styles.title}>证券/市值</Text>
+					<Text style={styles.title}>持仓</Text>
+					<Text style={styles.title}>市价/成本价</Text>
+					<Text style={styles.title}>盈亏/盈亏比</Text>
+				</View>
+				<ScrollView
+					refreshControl={
+						<PullToRefreshView
+							refreshing={me.state.loadState === 0 || false}
+							ref={(control) => this._refresh = control}
+							onRefresh={this.onRefresh.bind(me)} />
+					}>
+					{me.getRows()}
+				</ScrollView>
 			</View>
 		);
 	}
 }
+/*
+<PullToRefreshView
+					style={styles.container}
+					ref={(control) => this._refresh = control}
+					onRefresh={this.onRefresh.bind(me)}>*/
 
 const styles = StyleSheet.create({
 	container: {

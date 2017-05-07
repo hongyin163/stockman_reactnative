@@ -36,24 +36,14 @@ var scrollView = React.createClass({
   getInitialState: function () {
     return myStockStore.getState();
   },
+  cycle: 'day',
   componentDidMount: function () {
     myStockStore.listen(this.onChange);
     var me = this;
     InteractionManager.runAfterInteractions(() => {
       me.setLoading(true);
       myStockAction.loadRecoStateStock('day');
-      me.setLoading(false);
     });
-    // setTimeout(()=>{     
-
-    //     // setTimeout(()=>{
-    //     //     myStockAction.updatePrice(me.state);
-    //     //       setTimeout(()=>{
-    //     //           myStockAction.updateState(me.state,me.state.tech.code);
-    //     //           me.setLoading(false);
-    //     //       },500);          
-    //     // },500);
-    // },1000);    
   },
   componentWillUnmount: function () {
     myStockStore.unlisten(this.onChange);
@@ -104,18 +94,16 @@ var scrollView = React.createClass({
     me.setLoading(true);
     setTimeout(() => {
       myStockAction.updatePrice(me.state);
-      me.setLoading(false);
     }, 500);
   },
   setLoading: function (isLoading) {
-    this._stockList && this._stockList.setRefreshing(isLoading);
+    myStockAction.setLoading(isLoading);
   },
   onCycleSelect: function (code, name) {
     var me = this;
+    me.cycle = code;
     me.setLoading(true);
-    myStockAction.loadRecoStateStock(code, () => {
-      me.setLoading(false);
-    });
+    myStockAction.loadRecoStateStock(code);
   },
   getDataSrouce: function (argument) {
     var getSectionData = (dataBlob, sectionID) => {
@@ -166,9 +154,10 @@ var scrollView = React.createClass({
         stockRows.push(<View key={"placeholder"} style={{ flex: 1 }}></View>);
       } else {
         stockRows.push(<RefreshListView
-          key={'stockRecoStateList'}
+          key={'stockRecoStateList_' + this.cycle}
           style={styles.container}
           ref={(control) => this._stockList = control}
+          refreshing={this.state.isLoading || false}
           onRefresh={this.reloadData}
           pageSize={10}
           dataSource={this.getDataSrouce()}

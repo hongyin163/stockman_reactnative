@@ -12,7 +12,7 @@ class ObjectActions {
 		return function (dispatch) {
 			//action.setLoading(true);
 			objectLocal.get((error, objects) => {
-				
+
 				//action.setLoading(false);
 				if (!error) {
 					dispatch(objects);
@@ -147,7 +147,7 @@ class ObjectActions {
 	loadObjectList(category) {
 		var me = this;
 		return function (dispatch) {
-			
+
 			dataObject.getObjectList(category, function (results) {
 				objectLocal.get(function (error, list) {
 					if (error != null)
@@ -166,6 +166,9 @@ class ObjectActions {
 				});
 			});
 		}
+	}
+	setLoading(isLoading) {
+		return (dispatch) => { dispatch(isLoading) }
 	}
 	add(item) {
 		return (dispatch) => {

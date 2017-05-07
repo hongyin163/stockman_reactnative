@@ -39,18 +39,7 @@ var scrollView = React.createClass({
     InteractionManager.runAfterInteractions(() => {
       me.setLoading(true);
       myStockAction.loadRecoRankStock();
-      me.setLoading(false);
-    });
-    // setTimeout(()=>{     
-
-    //     // setTimeout(()=>{
-    //     //     myStockAction.updatePrice(me.state);
-    //     //       setTimeout(()=>{
-    //     //           myStockAction.updateState(me.state,me.state.tech.code);
-    //     //           me.setLoading(false);
-    //     //       },500);          
-    //     // },500);
-    // },1000);    
+    }); 
   },
   componentWillUnmount: function () {
     myStockStore.unlisten(this.onChange);
@@ -105,7 +94,8 @@ var scrollView = React.createClass({
     }, 500);
   },
   setLoading: function (isLoading) {
-    this._stockList && this._stockList.setRefreshing(isLoading);
+    // this._stockList && this._stockList.setRefreshing(isLoading);
+    myStockAction.setLoading(isLoading);
   },
   getDataSrouce: function (argument) {
     var getSectionData = (dataBlob, sectionID) => {
@@ -158,6 +148,7 @@ var scrollView = React.createClass({
         stockRows.push(<RefreshListView key={'reco_rank_listview'}
           style={styles.container}
           ref={(control) => this._stockList = control}
+          refreshing={this.state.isLoading || false}
           onRefresh={this.reloadData}
           pageSize={10}
           dataSource={this.getDataSrouce()}

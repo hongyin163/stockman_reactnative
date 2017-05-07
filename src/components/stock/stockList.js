@@ -21,11 +21,11 @@ var TimerMixin = require('react-timer-mixin');
 var myStockAction = require('../../actions/myStockAction');
 var Nav = require('../nav');
 var StockDetail = require('./stockDetail');
-var {ColorConfig} = require('../../config');
+var { ColorConfig } = require('../../config');
 var PullToRefreshView = require('../control/pullToRefresh');
 
 //<ObjectList data={} category={}/>
-var ObjectList = React.createClass({
+var StocktList = React.createClass({
 	onSetInMyHand: function () {
 		this._rowViewStyle.style.right.setValue(0);
 		myStockAction.setInHand(this.props.data.code, !this.props.data.inhand);
@@ -45,11 +45,11 @@ var ObjectList = React.createClass({
 			},
 			{
 				title: '置顶',
-				width:60
+				width: 60
 			},
 			{
 				title: '删除',
-				width:60
+				width: 60
 			}
 		];
 		return actions;
@@ -94,24 +94,27 @@ var ObjectList = React.createClass({
 	},
 	render: function () {
 
-		var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) =>{
-			
-			 return r1.code != r2.code
-
+		var ds = new ListView.DataSource({
+			rowHasChanged: (r1, r2) => {
+				return r1.code != r2.code;
 			}
-		 });
-		return (
-			<PullToRefreshView
-				style={styles.container}
-				ref={(control) => this._refresh = control}
-				onRefresh={this.onRefresh}>
-				<ListView
-					enableEmptySections={true}
-					pageSize={10}
-					dataSource={ds.cloneWithRows(this.props.data)}
-					renderRow={this.renderRow} />
+		});
 
-			</PullToRefreshView>
+		return (
+
+			<ListView
+				enableEmptySections={true}
+				pageSize={10}
+				dataSource={ds.cloneWithRows(this.props.data)}
+				renderRow={this.renderRow}
+				refreshControl={
+					<PullToRefreshView
+						refreshing={this.props.refreshing||false}
+						style={styles.container}
+						ref={(control) => this._refresh = control}
+						onRefresh={this.onRefresh} />
+				}
+			/>
 		);
 	}
 });
@@ -126,4 +129,4 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports = ObjectList;
+module.exports = StocktList;

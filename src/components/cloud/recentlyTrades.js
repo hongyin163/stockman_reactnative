@@ -55,13 +55,7 @@ class recentlyTrades extends Component {
 	render() {
 		var me = this;
 		var data = me.state.data.toJS();
-		if (data.loadState == 0) {
-			return (
-				<View key={'trade_load_warper'} style={styles.msg}>
-					<Loading key={'trade_loading'} />
-				</View>
-			);
-		}
+
 		var rows = [];
 		if (data.loadState == 1) {
 			var list = data.list;
@@ -79,22 +73,23 @@ class recentlyTrades extends Component {
 		}
 
 		return (
-			<PullToRefreshView
-				style={styles.container}
-				ref={(control) => this._refresh = control}
-				onRefresh={this.onRefresh.bind(me)}>
-				<View style={styles.container}>
-					<View style={styles.header}>
-						<Text style={styles.title}>证券</Text>
-						<Text style={styles.title}>交易量/交易</Text>
-						<Text style={styles.title}>成交价</Text>
-						<Text style={styles.title}>日期</Text>
-					</View>
-					<ScrollView style={styles.rowContainer} >
-						{rows}
-					</ScrollView>
+			<View style={styles.container}>
+				<View style={styles.header}>
+					<Text style={styles.title}>证券</Text>
+					<Text style={styles.title}>交易量/交易</Text>
+					<Text style={styles.title}>成交价</Text>
+					<Text style={styles.title}>日期</Text>
 				</View>
-			</PullToRefreshView>
+				<ScrollView style={styles.rowContainer}
+					refreshControl={
+						<PullToRefreshView
+							refreshing={data.loadState === 0 || false}
+							ref={(control) => this._refresh = control}
+							onRefresh={this.onRefresh.bind(me)} />
+					}>
+					{rows}
+				</ScrollView>
+			</View>
 		);
 	}
 }
