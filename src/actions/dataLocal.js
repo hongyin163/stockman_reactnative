@@ -64,4 +64,5 @@ module.exports={
 	filterConfig:new LocalListStore('user_filterconfig'),
 	techLocal:new LocalListStore('user_techs'),
 	strategyLocal:new LocalListStore('user_strategy'),
+	dataVersionLocal:new LocalListStore('data_version')
 };

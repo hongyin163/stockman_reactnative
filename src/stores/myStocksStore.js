@@ -4,10 +4,10 @@ var {
 } = React;
 var alt = require('../actions/alt');
 var actions = require('../actions/myStockAction');
-var dataStock = require('../actions/dataStock');
-
+// var dataStock = require('../actions/dataStock');
 var {
-	stockLocal
+	stockLocal,
+	dataVersionLocal
 } = require('../actions/dataLocal');
 /*            { name: 'id', type: 'string' },//0
             { name: 'date', type: 'string' },//0
@@ -55,8 +55,9 @@ class MyStocksStore {
 		});
 	}
 	handleLoadMyStock(stocks) {
+
 		var me = this;
-		me.stockList = stocks;
+		me.stockList = stocks||[];
 		// me.isLoading=false;
 		me.action = 'loadMystock';
 		me.errorMessage = null;
@@ -108,13 +109,13 @@ class MyStocksStore {
 	}
 	handleAdd(stock) {
 		var me = this;
-		if (!this.stockList || !this.stockList.map) {
-			this.stockList = [];
+		if (!me.stockList || !me.stockList.map) {
+			me.stockList = [];
 		}
-		if (this.stockList.length > 0) {
+		if (me.stockList.length > 0) {
 			var items = [];
 			var count = 0;
-			this.stockList.forEach((item) => {
+			me.stockList.forEach((item) => {
 				if (item.code == stock.code) {
 					count++;
 				}
@@ -124,8 +125,12 @@ class MyStocksStore {
 			}
 		}
 		me.action = 'add';
-		me.stockList.push(stock);
+		me.stockList.unshift(stock);
 		me.handleSetTop(stock.code);
+		// //修改版本号
+		// dataVersionLocal.save({
+		// 	stock_version: new Date().getTime()
+		// });
 	}
 	handleLoadFailed(errorMessage) {
 		var me = this;
@@ -150,6 +155,10 @@ class MyStocksStore {
 		me.action = 'remove';
 		me.stockList.splice(n, 1);
 		me.syncToLocal();
+		// //修改版本号
+		// dataVersionLocal.save({
+		// 	stock_version: new Date().getTime()
+		// });
 	}
 	handleSetInHand(obj) {
 		var me = this;

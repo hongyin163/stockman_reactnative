@@ -1,7 +1,7 @@
 /* @flow */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
 	ScrollView,
 	StyleSheet,
@@ -26,6 +26,9 @@ var PullToRefreshView = require('../control/pullToRefresh');
 
 //<ObjectList data={} category={}/>
 var StocktList = React.createClass({
+	propTypes: {
+		disableAction: PropTypes.bool
+	},
 	onSetInMyHand: function () {
 		this._rowViewStyle.style.right.setValue(0);
 		myStockAction.setInHand(this.props.data.code, !this.props.data.inhand);
@@ -38,6 +41,10 @@ var StocktList = React.createClass({
 		myStockAction.remove(this.props.data.code);
 	},
 	getActions: function (data) {
+		var me=this;
+		if(me.props.disableAction){
+			return [];
+		}
 		var actions = [
 			{
 				title: data.inhand ? '标为空仓' : '标为持仓',
@@ -109,7 +116,7 @@ var StocktList = React.createClass({
 				renderRow={this.renderRow}
 				refreshControl={
 					<PullToRefreshView
-						refreshing={this.props.refreshing||false}
+						refreshing={this.props.refreshing || false}
 						style={styles.container}
 						ref={(control) => this._refresh = control}
 						onRefresh={this.onRefresh} />

@@ -146,12 +146,14 @@ var StockDetail = React.createClass({
 	},
 	onAdd: function (argument) {
 		this.setState((state) => {
+			debugger;
 			state.isMyStock = true;
 		});
+		var me = this;
 		InteractionManager.runAfterInteractions(function () {
 			myStockAction.add({
-				code: this.props.code,
-				name: this.props.name,
+				code: me.props.code,
+				name: me.props.name,
 				type: '1',
 				symbol: '',
 				price: 0,

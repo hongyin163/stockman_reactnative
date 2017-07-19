@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 
 var myStockStore = require('../../stores/stockRecoCrossStore');
-var myStockAction = require('../../actions/recoAction');
+var recoAction = require('../../actions/recoAction');
+var myStockAction = require('../../actions/myStockAction');
 var NavAction = require('../../actions/navigationAction');
 //var StockList=require('./stockList');
 var StockItem = require('./editItem');
@@ -40,7 +41,7 @@ var scrollView = React.createClass({
     var me = this;
     InteractionManager.runAfterInteractions(() => {
       me.setLoading(true);
-      myStockAction.loadRecoCrossStock('day');
+      recoAction.loadRecoCrossStock('day');
     });
   },
   componentWillUnmount: function () {
@@ -57,7 +58,7 @@ var scrollView = React.createClass({
     var actions = [
       {
         title: '添加自选',
-        width: 80
+        width: 100
       }
     ];
     return actions;
@@ -91,18 +92,18 @@ var scrollView = React.createClass({
     var me = this;
     me.setLoading(true);
     me.setTimeout(() => {
-      myStockAction.updatePrice(me.state);
+      recoAction.updatePrice(me.state);
       // me.setLoading(false);
     }, 500);
   },
   setLoading: function (isLoading) {
-    myStockAction.setLoading(isLoading);
+    recoAction.setLoading(isLoading);
   },
   onCycleSelect: function (code, name) {
     var me = this;
     me.cycle = code;
     me.setLoading(true);
-    myStockAction.loadRecoCrossStock(code);
+    recoAction.loadRecoCrossStock(code);
   },
   getDataSrouce: function (argument) {
     var getSectionData = (dataBlob, sectionID) => {

@@ -218,7 +218,7 @@ var RecommentStock = React.createClass({
 		
 		var recoList = [];
 		if (this.state.list.length > 0) {
-			recoList.push(<StockList key={'StockList'} style={{ flex: 1 }} data={this.state.list} />)
+			recoList.push(<StockList key={'StockList'} style={{ flex: 1 }} data={this.state.list} disableAction={true} />)
 		} else {
 			recoList.push(
 				<Loading key={"RecommentStockLoading"} />
@@ -262,7 +262,7 @@ var StockDetail = React.createClass({
 			{...props} />;
 	},
 	renderLeftTool: function (argument) {
-		return <IconButton key={'back'} icon="fontawesome|chevron-left" color="#fff" onPress={() => Nav.back()} />;
+		return <IconButton key={'back'} icon="fontawesome|chevron-left" color="#ffffff" onPress={() => Nav.back()} />;
 	},
 	// renderRightTool:function (argument) {
 	// 	return <IconButton  onPress={this.onOpenAdd} icon={"fontawesome|plus"} color={"WHITE"}/>     
@@ -274,9 +274,9 @@ var StockDetail = React.createClass({
 			return actions;
 
 		if (this.state.isMine == false) {
-			actions.push(<IconButton key={'add'} onPress={this.onAdd} icon={"fontawesome|plus"} color={"WHITE"} />)
+			actions.push(<IconButton key={'add'} onPress={this.onAdd} icon={"fontawesome|plus"} color={"#ffffff"} />)
 		} else {
-			actions.push(<IconButton key={'remove'} onPress={this.onRemvoe} icon={"fontawesome|minus"} color={"WHITE"} />)
+			actions.push(<IconButton key={'remove'} onPress={this.onRemvoe} icon={"fontawesome|minus"} color={"#ffffff"} />)
 		}
 		return actions;
 	},
@@ -321,7 +321,7 @@ var StockDetail = React.createClass({
 					initialPage={0}
 					renderTabBar={this.renderTabBar}
 					onChangeTab={this.onPageSelected}
-					tabBarUnderlineColor={'#ffffff'}
+					tabBarUnderlineStyle ={{backgroundColor:'white'}}
 					tabBarActiveTextColor={'#ffffff'}
 					tabBarBackgroundColor={ColorConfig.baseColor}
 					ref={viewPager => { this._viewPager = viewPager; }}>

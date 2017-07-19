@@ -509,11 +509,14 @@ var styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#d9d9d9',
+    borderBottomWidth: 1,
+    borderBottomColor: '#EAEAEA',
 
-    borderRightColor: '#d9d9d9',
+    borderRightColor: '#EAEAEA',
     borderRightWidth: 1
+  },
+  rowLast:{
+
   },
   info: {
     paddingLeft: 10,
@@ -563,9 +566,7 @@ var styles = StyleSheet.create({
     position: 'absolute',
     left: 0, top: 0, right: 0, bottom: 0,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    borderTopWidth: 1,
-    borderTopColor: '#d9d9d9',
+    justifyContent: 'flex-end'
   },
   slideBtn: {
     width: 50,

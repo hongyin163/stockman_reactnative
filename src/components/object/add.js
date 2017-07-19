@@ -18,7 +18,7 @@ var StockStore = require('../../stores/objectAddStore');
 var ObjectAction = require('../../actions/objectAction');
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 var {ColorConfig} = require('../../config');
-
+var Loading=require('../control/loading');
 var SCREEN_WIDTH = Dimensions.get('window').width;
 var SCREEN_HEIGHT = Dimensions.get('window').height;
 var objectData = [{ "code": "0000001", "name": "上证指数", "type": "3", "price": 3612.49, "yestclose": 3636.09, "state": null, "inhand": false, "sort": 0 }, { "code": "0000016", "name": "上证50", "type": "3", "price": 2481.75, "yestclose": 2503.06, "state": null, "inhand": false, "sort": 0 }, { "code": "1399001", "name": "深证成指", "type": "3", "price": 12932.37, "yestclose": 13007.87, "state": null, "inhand": false, "sort": 0 }, { "code": "1399004", "name": "深证100R", "type": "3", "price": 5395.19, "yestclose": 5449.74, "state": null, "inhand": false, "sort": 0 }, { "code": "1399005", "name": "中小板指", "type": "3", "price": 8517.34, "yestclose": 8556.14, "state": null, "inhand": false, "sort": 0 }, { "code": "1399006", "name": "创业板指", "type": "3", "price": 2795.78, "yestclose": 2783.94, "state": null, "inhand": false, "sort": 0 }, { "code": "1399300", "name": "沪深300", "type": "3", "price": 3829.40, "yestclose": 3866.38, "state": null, "inhand": false, "sort": 0 }];
@@ -99,7 +99,7 @@ var ItemList = React.createClass({
 	},
 	createItems: function (argument) {
 		var data = this.state.data[this.props.cate];
-		if (!data) return [];
+		if (!data) return [<Loading/>];
 
 		var items = [];
 		for (var i = 0; i < data.length; i++) {
@@ -146,9 +146,9 @@ var Add = React.createClass({
 				<ScrollableTabView
 					style={styles.container}
 					initialPage={0}
-					tabBarUnderlineColor={ColorConfig.baseColor}
+					tabBarUnderlineStyle ={{backgroundColor:ColorConfig.baseColor}}
 					tabBarActiveTextColor={ColorConfig.baseColor}
-					onChangeTab={this.onPageSelected}
+					onChangeTab={this.onPageSelected}					
 					ref={viewPager => { this._viewPager = viewPager; }}>
 					<View tabLabel={"大盘"} style={{ flex: 1 }}>
 						<ItemList key={'viewPager_0'} ref={'viewPager_0'} cate={'3'} />

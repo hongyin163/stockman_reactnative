@@ -19,7 +19,7 @@ module.exports = {
 	saveSSOAcount: function(user,success,error) {
 		var url = host + 'api/users/SaveSSOAcount';
 		debugger;
-		Util.post(url, {
+		Util.auth(url, {
 			id: user.id,
 			name: user.username,
 			password: user.password,

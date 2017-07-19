@@ -138,7 +138,7 @@ var Add = React.createClass({
 					<TextInput ref={(n) => this._input = n} onChangeText={this.onInputChange} underlineColorAndroid={'#fff'}
 						keyboardType={'default'}
 						autoFocus={false} style={styles.input}>{this.state.input}</TextInput>
-					<IconButton onPress={this.onSearch} icon={"fontawesome|search"} color={"WHITE"} />
+					<IconButton onPress={this.onSearch} icon={"fontawesome|search"} color={"#ffffff"} />
 				</Titlebar>
 				<ScrollView keyboardShouldPersistTaps={"always"} style={{ flex: 2 }}>
 					{this.getSearchResult()}
@@ -193,6 +193,12 @@ var styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+	button: {		
+		width: 100,
+		height: 100,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
 	voiseBtn: {
 		width: 80,
 		height: 80,
@@ -200,12 +206,11 @@ var styles = StyleSheet.create({
 		backgroundColor: ColorConfig.baseColor,
 		justifyContent: 'center',
 		alignItems: 'center',
+		elevation: 5
 	},
 	voiseIcon: {
 		width: 60,
-		height: 60,
-		marginLeft: 5,
-		marginRight: 5
+		height: 60
 	}
 });
 

@@ -58,6 +58,35 @@ module.exports = {
 			});
 		})
 	},
+	auth: function (url, data, successCallback, errorCallback) {
+		var me = this;
+		var body = '';
+		if (typeof data == 'object') {
+			body = JSON.stringify(data);
+		} else {
+			body = data;
+		}
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Origin': 'http://localhost',
+				'Content-Type': 'application/json',
+				'Authorization': 'Basic ' + Base64.encode('guest:guest')
+			},
+			body: body
+		}).then((response) => {
+			if (response.status == 200)
+				return response.json();
+			else
+				throw new Error(response.status, response.statusText);
+		}).then((responseJson) => {
+			successCallback && successCallback(responseJson);
+		}).catch((error) => {
+			errorCallback && errorCallback(error.message);
+			Toast.show(error.message);
+		});
+	},
 	getToken: function (callback) {
 		var me = this;
 		if (me._token) {

@@ -93,7 +93,7 @@ var Menu = React.createClass({
   },
   componentDidMount: function () {
     UserInfoStore.listen(this.onChange);
-    UserAction.initInfo();
+    // UserAction.initInfo();
   },
   componentWillUnmount: function () {
     UserInfoStore.unlisten(this.onChange);

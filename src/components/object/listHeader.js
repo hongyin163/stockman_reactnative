@@ -72,8 +72,7 @@ var ListHeader = React.createClass({
 	},
 	render: function() {
 	    return (
-	      	<View style={{flexDirection: 'row',height:35,backgroundColor:'#f5f5f5' }}>
-	       
+	      	<View style={styles.container}>	       
 						<View style={styles.head}><Text style={styles.headText}>名称</Text></View>
 						<View style={styles.head}><Text style={styles.headText}>价格</Text></View>
 						<TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}
@@ -100,6 +99,7 @@ var ListHeader = React.createClass({
 	});
 
 var styles = StyleSheet.create({
+	container:{flexDirection: 'row',height:35,backgroundColor:'#f5f5f5' },
 	head:{flexDirection:'row', flex:1, justifyContent :'center',alignItems: 'center',},
   	headText:{fontSize:15},
 });

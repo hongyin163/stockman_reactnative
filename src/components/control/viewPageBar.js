@@ -90,13 +90,13 @@ var DefaultTabBar = React.createClass({
     return [];
   },
   render() {
+    debugger;
     var containerWidth = this.props.containerWidth;
     var numberOfTabs = this.props.tabs.length;
     var tabUnderlineStyle = {
       position: 'absolute',
       width: containerWidth / (numberOfTabs * 3),
       height: 2,
-      backgroundColor: this.props.underlineColor || "navy",
       bottom: 5,
     };
 
@@ -111,7 +111,7 @@ var DefaultTabBar = React.createClass({
         </View>
         <View style={[styles.tabs]}>
           {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
-          <Animated.View style={[tabUnderlineStyle, { left }]} />
+          <Animated.View style={[tabUnderlineStyle, { left },, this.props.underlineStyle,]} />
         </View>
         <View style={styles.toolbarRight}>
           {this.renderRightTool()}

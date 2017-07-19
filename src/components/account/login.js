@@ -50,7 +50,7 @@ var Login = React.createClass({
       debugger;
       dataUser.saveSSOAcount(data,
         function (obj) {
-
+          debugger;
           ToastAndroid.show('登录成功', ToastAndroid.SHORT);
           Nav.back();
         },

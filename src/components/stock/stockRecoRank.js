@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 
 var myStockStore = require('../../stores/stockRecoRankStore');
-var myStockAction = require('../../actions/recoAction');
+var recoAction = require('../../actions/recoAction');
+var myStockAction = require('../../actions/myStockAction');
 var NavAction = require('../../actions/navigationAction');
 var StockList = require('./stockList');
 var ListHeader = require('./listHeader');
@@ -38,7 +39,7 @@ var scrollView = React.createClass({
     var me = this;
     InteractionManager.runAfterInteractions(() => {
       me.setLoading(true);
-      myStockAction.loadRecoRankStock();
+      recoAction.loadRecoRankStock();
     }); 
   },
   componentWillUnmount: function () {
@@ -55,7 +56,7 @@ var scrollView = React.createClass({
     var actions = [
       {
         title: '添加自选',
-        width: 80
+        width: 100
       }
     ];
     return actions;
@@ -89,13 +90,13 @@ var scrollView = React.createClass({
     var me = this;
     me.setLoading(true);
     setTimeout(() => {
-      myStockAction.updatePrice(me.state);
+      recoAction.updatePrice(me.state);
       me.setLoading(false);
     }, 500);
   },
   setLoading: function (isLoading) {
     // this._stockList && this._stockList.setRefreshing(isLoading);
-    myStockAction.setLoading(isLoading);
+    recoAction.setLoading(isLoading);
   },
   getDataSrouce: function (argument) {
     var getSectionData = (dataBlob, sectionID) => {

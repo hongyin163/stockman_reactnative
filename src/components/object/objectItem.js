@@ -412,10 +412,9 @@ var styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#d9d9d9',
-
-    borderRightColor: '#d9d9d9',
+    borderBottomWidth: 1,
+    borderBottomColor: '#EAEAEA',
+    borderRightColor: '#EAEAEA',
     borderRightWidth: 1
   },
   info: {

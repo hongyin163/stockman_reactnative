@@ -1,4 +1,5 @@
 var alt = require('./alt');
+var _ = require('lodash');
 //import {createActions} from 'alt/utils/decorators';
 var dataStock = require('./dataStock');
 var {
@@ -10,10 +11,14 @@ var {
 var util = require('./util');
 
 class MyStockActions {
+  constructor() {
+    var me = this;
+    me.uploadStock = _.debounce(me.upLoad, 10000);
+  }
   loadMyStock(callback) {
     var me = this;
     return (dispatch) => {
-      
+      debugger;
       //action.setLoading(true);
       stockLocal.get((error, stocks) => {
         //action.setLoading(false);
@@ -130,28 +135,33 @@ class MyStockActions {
     }
   }
   add(item) {
-    var obj = {
-      code: item.code,
-      name: item.name,
-      type: item.type,
-      symbol: item.symbol,
-      date: '',
-      price: item.price,
-      yestclose: item.yestclose,
-      sort: 0,
-      inhand: false,
-      day: 0,
-      week: 0,
-      month: 0,
-      last_day: 0,
-      last_week: 0,
-      last_month: 0
+    var me = this;
+    return (dispatch) => {
+      dispatch({
+        code: item.code,
+        name: item.name,
+        type: item.type,
+        symbol: item.symbol,
+        date: '',
+        price: item.price,
+        yestclose: item.yestclose,
+        sort: 0,
+        inhand: false,
+        day: 0,
+        week: 0,
+        month: 0,
+        last_day: 0,
+        last_week: 0,
+        last_month: 0
+      });
+      me.uploadStock();
     };
-    return (dispatch)=>dispatch(obj);
   }
   remove(code) {
+    var me = this;
     return (dispatch) => {
       dispatch(code);
+      me.uploadStock();
     }
   }
   setInHand(code, inhand) {
@@ -258,14 +268,14 @@ class MyStockActions {
   downLoad(cb) {
     var me = this;
     return (dispatch) => {
-      
+
       userLocal.get(function (err, user) {
         if (err) {
           cb && cb(err);
           return;
         }
         dataStock.downLoad(user.id, function (result) {
-          
+
           dispatch(result);
           cb && cb(null, result);
         });
@@ -273,7 +283,10 @@ class MyStockActions {
     }
   }
   upLoad(cb) {
+    console.log('upload');
     dataStock.upLoad(cb);
+    return (dispatch) => {
+    }
   }
   removeAll() {
     var me = this;

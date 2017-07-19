@@ -50,7 +50,7 @@ var Cloud = React.createClass({
 				<ScrollableTabView
 					style={styles.tabView}
 					initialPage={0}
-					tabBarUnderlineColor={ColorConfig.baseColor}
+					tabBarUnderlineStyle ={{backgroundColor:ColorConfig.baseColor}}
 					tabBarActiveTextColor={ColorConfig.baseColor}
 					onChangeTab={this.onPageSelected}
 					ref={viewPager => { this._viewPager = viewPager; }}>

@@ -69,9 +69,9 @@ var scrollView = React.createClass({
     myStockStore.unlisten(this.onChange);
   },
   onChange: function (store) {
-    if (store.action == 'remove') {
-      return;
-    }
+    // if (store.action == 'remove') {
+    //   return;
+    // }
 
     this.setState(function (state) {
       for (var p in store) {

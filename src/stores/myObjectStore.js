@@ -1,5 +1,6 @@
 var alt = require('../actions/alt');
 var actions = require('../actions/objectAction');
+
 var {
   objectLocal
 } = require('../actions/dataLocal');
@@ -23,20 +24,20 @@ class MyObjectStore {
 			handleUpdatePrice: actions.UPDATE_PRICE,
 			handleSetTop: actions.SET_TOP,
 			//handleLoadFailed:actions.LOAD_FAILED,
-			handleSetLoading:actions.SET_LOADING,
+			handleSetLoading: actions.SET_LOADING,
 			handleSort: actions.SORT,
 			//handleSetTech:actions.SET_TECH
 			handleLoadRecoCateCount: actions.LOAD_RECO_CATE_COUNT
 		});
 	}
 	handelLoadMyObjects(objects) {
-
-		this.list = objects.sort((a, b) => {
+		var objs = objects || [];
+		this.list = objs.sort((a, b) => {
 			return Number(b.type) - Number(a.type);
 		});
 	}
 	handleDownLoadMyObject(stocks) {
-		this.list = stocks;
+		this.list = stocks||[];
 		this.syncToLocal();
 	}
 	handleUpdatePrice(stocks) {

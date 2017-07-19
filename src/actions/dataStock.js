@@ -11,7 +11,8 @@ var {
       stockLocal,
       objectLocal,
       filterConfig,
-      userLocal
+      userLocal,
+      dataVersionLocal
 } = require('./dataLocal');
 
 var util = require('./util');
@@ -239,7 +240,7 @@ module.exports = {
       downLoad: function (user_id, callback) {
             var me = this;
             //从服务器加载数据到本地
-            var url = host + 'api/stock/GetMyStocks/' + user_id;
+            var url = host + 'api/stock/GetMyStocks/';
             util.get(url, function (syncStock) {
 
                   var mystock = [];
@@ -266,7 +267,9 @@ module.exports = {
                         return b.sort - a.sort;
                   });
                   // debugger;
-                  // stockLocal.save(sorts);
+                  dataVersionLocal.save({
+                        stock_version: syncStock.version
+                  });
                   callback && callback(sorts);
 
             });
@@ -294,15 +297,18 @@ module.exports = {
       upLoad: function (callback) {
             var me = this;
             //上传本地数据到服务器
-
-            userLocal.get(function (err, user) {
-                  if (err) {
-                        callback && callback(err);
-                        return;
+            debugger;
+            dataVersionLocal.get(function (dataVersion) {
+                  var stock_version = 0;
+                  if (dataVersion && dataVersion['stock_version']) {
+                        stock_version = Number(dataVersion['stock_version']);
+                  } else {
+                        stock_version = new Date().getTime();
+                        dataVersionLocal.save({
+                              stock_version: stock_version
+                        });
                   }
-
                   stockLocal.get(function (error, stocks) {
-
                         if (error) return callback && callback(error);
 
                         var stockList = stocks.map(function (stock, i) {
@@ -312,9 +318,11 @@ module.exports = {
                                     sort: stock.sort
                               };
                         });
+
                         var url = host + 'api/stock/PostMyStocks';
                         util.post(url, {
-                              user_id: user.id,
+                              user_id:"",
+                              version: stock_version,
                               stocks: stockList
                         }, function (info) {
                               if (info && info.success) {
@@ -324,9 +332,7 @@ module.exports = {
                               }
                         });
                   });
-
-            });
-
+            })
       },
       search: function (v, callback) {
             if (v == '' || v.length <= 2) {

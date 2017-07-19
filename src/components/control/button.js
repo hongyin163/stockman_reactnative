@@ -21,7 +21,7 @@ class button extends React.Component {
       subitem.push(<Icon key={"1"} name={this.props.icon} size={25} color={this.props.color} style={styles.buttonIcon} />);
     }
     if (this.props.text) {
-      subitem.push(<Text key={"2"} style={[styles.buttonText, { color: this.props.color }]}>{this.props.text}</Text>);
+      subitem.push(<Text key={"2"} style={[styles.buttonText, { color: this.props.textColor||this.props.color }]}>{this.props.text}</Text>);
     }
     var me = this;
     return (
