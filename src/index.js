@@ -17,24 +17,36 @@ var TextButton = require('./components/control/button');
 var TabPanel = require('./components/tabPanel');
 var Subscribable = require('Subscribable');
 var SideMenu = require('./components/menu');
-
 var Nav = require('./components/nav');
 
+import Toast from './components/control/toast';
+
 var DrawerLayout = React.createClass({
-  componentWillMount: function () {
+  componentDidMount: function () {
     var me = this;
-    NativeAppEventEmitter.addListener('openMenu', this.onOpenMenu);
+    me.unsub = NativeAppEventEmitter.addListener('openMenu', () => {
+      me.onOpenMenu();
+    });
+  },
+  componentWillUnmount: function () {
+    var me = this;
+    me.unsub.remove();
+  },
+  componentWillMount: function () {
+
   },
   onOpenMenu: function () {
-    this.refs.drawerMenu.openDrawer();
+    debugger;
+    this.drawerMenu.openDrawer();
   },
   onMenuSelect: function (argument) {
-    this.refs.drawerMenu.closeDrawer();
+    this.drawerMenu.closeDrawer();
   },
   render: function () {
+    debugger;
     return (
       <DrawerLayoutAndroid
-        ref="drawerMenu"
+        ref={(n) => this.drawerMenu = n}
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => (<SideMenu onMenuSelect={this.onMenuSelect} />)}>
@@ -52,17 +64,34 @@ var Main = React.createClass({
   },
 
   componentDidMount: function () {
-    this.addListenerOn(DeviceEventEmitter,
-      'hardwareBackPress',
-      this.onBack);
+    var me = this;
 
-    BackAndroid.addEventListener('hardwareBackPress', function () {
-      //NativeAppEventEmitter.emit('back');
-      NativeAppEventEmitter.emit('back');
-
-      return false;
-    });
     Nav.regist(this._nav);
+    var clickCount = 0;
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+
+      var nav = me._nav;
+      var state = nav.state;
+      var routeStack = state.routeStack;
+      if (routeStack.length == 1) {
+        if (clickCount == 0) {
+          Toast.show('再按一次退出慢牛');
+          clickCount++;
+          var timer = setTimeout(() => {
+            clickCount = 0;
+            clearTimeout(timer);
+          }, 1500);
+          return true;
+        } else if (clickCount >= 1) {
+          BackAndroid.exitApp();
+          return false;
+        }
+      } else {
+        Nav.back();
+        return true;
+      }
+    });
+
   },
   render: function () {
     return (
@@ -72,7 +101,7 @@ var Main = React.createClass({
         style={styles.appContainer}
         sceneStyle={styles.sceneStyle}
         configureScene={(route) => Navigator.SceneConfigs.PushFromRight}
-        initialRoute={{ component: <DrawerLayout /> }}
+        initialRoute={{ name: 'main', component: <DrawerLayout /> }}
         renderScene={(route, navigator) => route.component} />
     );
   }

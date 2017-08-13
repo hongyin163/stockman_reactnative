@@ -4,6 +4,8 @@ var {
 var Base64 = require('../libs/base64');
 
 import Toast from '../components/control/toast';
+import rsaKey from './rsaKey';
+import { JSEncrypt } from 'jsencrypt';
 
 module.exports = {
 	_token: '',
@@ -35,6 +37,7 @@ module.exports = {
 		} else {
 			body = data;
 		}
+		
 		me.getToken(function (token) {
 			fetch(url, {
 				method: 'POST',
@@ -58,23 +61,26 @@ module.exports = {
 			});
 		})
 	},
-	auth: function (url, data, successCallback, errorCallback) {
+	postWithGuest: function (url, data, successCallback, errorCallback) {
 		var me = this;
+		var encrypt = new JSEncrypt();
+		encrypt.setPublicKey(rsaKey.PublicKey);
 		var body = '';
 		if (typeof data == 'object') {
 			body = JSON.stringify(data);
 		} else {
 			body = data;
 		}
+		
 		fetch(url, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Origin': 'http://localhost',
-				'Content-Type': 'application/json',
-				'Authorization': 'Basic ' + Base64.encode('guest:guest')
+				'Content-Type': 'application/json;charset=utf-8',
+				'Authorization': 'Basic ' + encrypt.encrypt('guest:guest')
 			},
-			body: body
+			body: JSON.stringify(encrypt.encrypt(body))
 		}).then((response) => {
 			if (response.status == 200)
 				return response.json();
@@ -89,6 +95,9 @@ module.exports = {
 	},
 	getToken: function (callback) {
 		var me = this;
+		var encrypt = new JSEncrypt();
+		encrypt.setPublicKey(rsaKey.PublicKey);
+
 		if (me._token) {
 			callback && callback(me._token);
 			return;
@@ -96,10 +105,10 @@ module.exports = {
 		userLocal.get(function (err, user) {
 			debugger;
 			if (err) {
-				me._token = 'Basic ' + Base64.encode('guest:guest');
+				me._token = 'Basic ' + encrypt.encrypt('guest:guest');
 				callback && callback(me._token);
 			} else {
-				me._token = 'Basic ' + Base64.encode(user.id + ':' + user.password);
+				me._token = 'Basic ' + encrypt.encrypt(user.id + ':');
 				callback && callback(me._token);
 			}
 		})

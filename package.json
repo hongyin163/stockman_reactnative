@@ -4,12 +4,16 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "release": "cd android && gradlew assembleRelease",
+    "install-dev": "react-native run-android",
+    "install-release": "react-native run-android --variant=release",
     "test": "jest"
   },
   "dependencies": {
     "alt": "^0.18.6",
     "blueimp-md5": "^2.7.0",
     "immutable": "^3.7.6",
+    "jsencrypt": "^2.3.1",
     "react": "~15.4.0",
     "react-native": "0.41.2",
     "react-native-android-lib": "^1.0.2",

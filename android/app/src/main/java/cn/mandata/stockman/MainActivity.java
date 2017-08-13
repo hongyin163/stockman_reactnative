@@ -36,9 +36,19 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "stock";
     }
-    
+
+
     @Override
-    public void onBackPressed() {
-        this.onKeyUp(KeyEvent.KEYCODE_MENU,new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_MENU));
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+
+                this.onKeyUp(KeyEvent.KEYCODE_MENU,new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_MENU));
+
+                return true;
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

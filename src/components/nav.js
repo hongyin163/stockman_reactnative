@@ -13,12 +13,12 @@ class Nav {
 	constructor(){
 		// NativeAppEventEmitter.addListener('nav', this.onNav);
 	}
-	regist(navigator){
+	regist(navigator){		
 		this.navigator=navigator;
 	}
 	open(page){
-		//this.navigator.push({name:data.name,component:React.createElement(data.component,data.props)})
-		this.navigator.push({name:'',component:page});
+		//this.navigator.push({name:data.name,component:React.createElement(data.component,data.props)})	
+		this.navigator.push({name:page.type.displayName,component:page});
 	}
 	back(){
 		this.navigator.pop();
